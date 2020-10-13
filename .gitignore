@@ -4,3 +4,4 @@ dist
 /cypress/integration/examples/
 polygloatRestructure.webapp.iml
 build.gradle
+.env.dev
