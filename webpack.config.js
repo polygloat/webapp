@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require("webpack");
 
@@ -97,9 +96,9 @@ module.exports = env => {
                     polygloatApiUrl: env.polygloatApiUrl
                 })
             })
-            //new BundleAnalyzerPlugin()
         ],
         devServer: {
+            host: env.host,
             historyApiFallback: true,
             overlay: true
         }

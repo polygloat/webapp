@@ -76,9 +76,6 @@ const theme = createMuiTheme({
     },
 });
 
-/* @ts-ignore */
-console.log({...(global.polygloatDevProps || {})});
-
 ReactDOM.render(
     <React.Suspense fallback={<FullPageLoading/>}>
         <PolygloatProvider
