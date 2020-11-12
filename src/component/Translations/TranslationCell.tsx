@@ -20,7 +20,7 @@ export const TranslationCell: FunctionComponent<TranslationsTableCellProps> = (p
     let context = useContext(RowContext);
 
     const handleSubmit = (v) => {
-        actions.loadableActions.setTranslations.dispatch(repositoryDTO.id, {sourceFullPath: context.data.name, translations: {[props.abbreviation]: v}});
+        actions.loadableActions.setTranslations.dispatch(repositoryDTO.id, {key: context.data.name, translations: {[props.abbreviation]: v}});
     };
 
     return (
