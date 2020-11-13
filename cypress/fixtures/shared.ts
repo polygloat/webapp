@@ -2,14 +2,11 @@
 import {getAnyContainingText, getInput} from "./xPath";
 import {clickAdd} from "./global";
 
-require('cypress-xpath');
-
 export const host = 'http://localhost:5000';
-export const defaultUsername = process.env.defaultUsername || "admin";
-export const defaultPassword = process.env.defaultPassword || "admin";
+export const defaultUsername = Cypress.env("defaultUsername") || "admin";
+export const defaultPassword = Cypress.env("defaultPassword") || "admin";
 
 export const login = (username = defaultUsername, password = defaultPassword) => {
-    cy.log(process.env);
     cy.xpath('//input[@name="username"]')
         .type(username).should('have.value', username);
     cy.xpath('//input[@name="password"]')
@@ -19,7 +16,9 @@ export const login = (username = defaultUsername, password = defaultPassword) =>
 };
 
 export const createRepository = (name = "Repository", languages = [{name: "English", abbreviation: "en"}]) => {
+    cy.wait(500);
     cy.visit(host + "/repositories");
+    cy.wait(500);
     clickAdd();
     cy.xpath(getInput("name")).type(name);
     cy.xpath(getInput("languages.0.name")).type(languages[0].name);

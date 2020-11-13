@@ -3,16 +3,18 @@ import {createRepository, deleteRepository, host, login} from "../fixtures/share
 import {getAnyContainingText} from "../fixtures/xPath";
 import {clickAdd} from "../fixtures/global";
 
-require('cypress-xpath');
-
 describe('Api keys', () => {
     beforeEach(() => {
         cy.visit(host + '/apiKeys');
         login();
+        createRepository();
     });
 
+    afterEach(() => {
+        deleteRepository("Repository");
+    })
+
     it('Will add an api key', () => {
-        createRepository();
         cy.visit(host + '/apiKeys');
         create();
         cy.xpath(getAnyContainingText("Api Key:")).its("length").then(n => {
@@ -21,7 +23,6 @@ describe('Api keys', () => {
             del();
         });
         del();
-        deleteRepository("Repository");
     })
 });
 
