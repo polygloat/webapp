@@ -13,10 +13,10 @@ export const login = (username = defaultUsername, password = defaultPassword) =>
         .type(password).should('have.value', password);
     cy.xpath("//button//*[text() = 'Login']").click();
     cy.xpath(getAnyContainingText("Login")).should("not.be.visible");
+    cy.xpath("//*[@aria-controls='user-menu']");
 };
 
 export const createRepository = (name = "Repository", languages = [{name: "English", abbreviation: "en"}]) => {
-    cy.wait(500);
     cy.visit(host + "/repositories");
     cy.wait(500);
     clickAdd();
@@ -28,6 +28,7 @@ export const createRepository = (name = "Repository", languages = [{name: "Engli
 
 export const deleteRepository = (name = "Repository") => {
     cy.visit(host + "/repositories");
+    cy.xpath(getAnyContainingText("Repositories"));
     cy.xpath(getAnyContainingText(name)).click();
     cy.wait(500);
     cy.xpath(getAnyContainingText("Repository settings")).click();
