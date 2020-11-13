@@ -31,7 +31,7 @@ jobs:
         run: npm run serve & npm run cy:run
 
       - name: Npm version
-        run: npm version
+        run: npm version prerelease
 
       - name: Git push
         run: git push --tags
