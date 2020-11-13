@@ -27,7 +27,6 @@ describe('Api keys', () => {
 
 
 const create = async (repository: string) => {
-    cy.wait(1000);
     clickAdd();
     cy.contains("Generate api key").xpath(getClosestContainingText("Application")).click();
     cy.get(".MuiPopover-root").contains(repository).click();
@@ -35,6 +34,7 @@ const create = async (repository: string) => {
 };
 
 const del = () => {
+    cy.wait(500);
     cy.xpath(getAnyContainingText("Api Key:"))
         .last()
         .xpath("(./ancestor::*//*[@aria-label='delete'])[1]")
