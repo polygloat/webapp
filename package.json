@@ -1,7 +1,7 @@
 {
-  "name": "polygloat-client",
-  "version": "0.0.1",
-  "description": "Front-end application for polygloat localization system.",
+  "name": "@polygloat/webapp",
+  "version": "1.0.0-alhpa.0",
+  "description": "Single page web application for Polygloat localization framework",
   "main": "dist/index.js",
   "sideEffects": false,
   "scripts": {
@@ -12,7 +12,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "check": "tsc",
-    "cypress": "cypress run"
+    "serve": "serve ./dist -s",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open"
   },
   "author": "Jan Cizmar",
   "license": "ISC",
@@ -20,10 +22,12 @@
     "@sentry/browser": "^5.24.2",
     "@types/yup": "^0.26.33",
     "clsx": "^1.1.1",
+    "cypress-dotenv": "^1.2.2",
     "formik": "^2.1.6",
     "formik-material-ui": "^1.0.2",
     "namor": "^2.0.2",
     "notistack": "^0.9.17",
+    "polygloat-react": "^0.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
@@ -35,8 +39,7 @@
     "regenerator-runtime": "^0.13.7",
     "tsyringe": "^4.3.0",
     "webpack-cli": "^3.3.12",
-    "yup": "^0.28.5",
-    "polygloat-react": "^0.0.2"
+    "yup": "^0.28.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.11.6",
@@ -66,8 +69,8 @@
     "babel-plugin-transform-imports": "^2.0.0",
     "babel-plugin-transform-typescript-metadata": "^0.2.2",
     "copy-webpack-plugin": "^6.1.1",
-    "cypress": "^4.12.1",
-    "cypress-xpath": "^1.6.0",
+    "cypress": "^5.6.0",
+    "cypress-xpath": "^1.6.1",
     "dotenv": "^8.2.0",
     "file-loader": "^6.1.0",
     "html-webpack-plugin": "^3.2.0",
@@ -76,6 +79,7 @@
     "react-column-resizer": "^1.1.9",
     "react-svg-loader": "^3.0.3",
     "reflect-metadata": "^0.1.13",
+    "serve": "^11.3.2",
     "source-map-loader": "^1.1.0",
     "ts-jest": "^26.4.1",
     "ts-loader": "^6.2.1",

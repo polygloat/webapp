@@ -49,9 +49,12 @@ export const LocaleMenu: FunctionComponent<{ className?: string }> = (props) => 
     return (
         <>
             <div>
-                <Button style={{padding: 0}} endIcon={<KeyboardArrowDownIcon/>} color="inherit" aria-controls="user-menu" aria-haspopup="true"
-                        onClick={handleOpen}><LanguageIcon/></Button>
-                <StyledMenu id="user-menu" keepMounted
+                <Button style={{padding: 0}} endIcon={<KeyboardArrowDownIcon/>}
+                        color="inherit"
+                        aria-controls="language-menu" aria-haspopup="true"
+                        onClick={handleOpen}><LanguageIcon/>
+                </Button>
+                <StyledMenu id="language-menu" keepMounted
                             open={!!anchorEl}
                             anchorEl={anchorEl}
                             onClose={handleClose}

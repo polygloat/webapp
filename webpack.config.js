@@ -2,14 +2,15 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require("webpack");
-
+const dotenv = require('dotenv');
 
 module.exports = env => {
     const isDevelopment = env.mode === "development";
     const mode = env.mode || 'production';
 
-    const dotenv = require('dotenv').config({path: ".env." + (isDevelopment ? "dev" : "prod")});
-    env = {...dotenv.parsed, ...env};
+    const dotenvMaster = dotenv.config({path: ".env"});
+    const dotenvProfile = dotenv.config({path: ".env." + (isDevelopment ? "dev" : "prod")});
+    env = {...dotenvProfile.parsed, ...dotenvMaster.parsed, ...env, ...process.env};
 
     return {
         entry: {
@@ -98,9 +99,10 @@ module.exports = env => {
             })
         ],
         devServer: {
-            host: env.host,
+            host: env.host || "localhost",
             historyApiFallback: true,
-            overlay: true
+            overlay: true,
+            port: env.port || undefined
         }
     }
 };

@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import {host, login} from "./shared";
+import {host, login} from "../fixtures/shared";
 
 require('cypress-xpath');
 

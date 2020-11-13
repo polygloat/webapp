@@ -1,11 +1,11 @@
 /// <reference types="cypress" />
-import {createRepository, deleteRepository, host, login} from "./shared";
-import {getAnyContainingText} from "./xPath";
-import {clickAdd} from "./global";
+import {createRepository, deleteRepository, host, login} from "../fixtures/shared";
+import {getAnyContainingText} from "../fixtures/xPath";
+import {clickAdd} from "../fixtures/global";
 
 require('cypress-xpath');
 
-context('Api keys', () => {
+describe('Api keys', () => {
     beforeEach(() => {
         cy.visit(host + '/apiKeys');
         login();
@@ -32,6 +32,9 @@ const create = () => {
 };
 
 const del = () => {
-    cy.xpath(getAnyContainingText("Api Key:")).last().xpath("./../../..//*[@aria-label='delete']").click();
+    cy.xpath(getAnyContainingText("Api Key:"))
+        .last()
+        .xpath("(./ancestor::*//*[@aria-label='delete'])[1]")
+        .scrollIntoView({offset: {top: -500, left: 0}}).click();
     cy.xpath(getAnyContainingText("confirm")).click();
 };

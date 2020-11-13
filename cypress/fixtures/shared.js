@@ -4,7 +4,7 @@ import {clickAdd} from "./global";
 
 require('cypress-xpath');
 
-export const host = Cypress.env("host") || "http://localhost:8080";
+export const host = 'http://localhost:5000';
 export const defaultUsername = process.env.defaultUsername || "admin";
 export const defaultPassword = process.env.defaultPassword || "admin";
 
@@ -30,5 +30,12 @@ export const createRepository = (name = "Repository", languages = [{name: "Engli
 export const deleteRepository = (name = "Repository") => {
     cy.visit(host + "/repositories");
     cy.xpath(getAnyContainingText(name)).click();
+    cy.wait(500);
+    cy.xpath(getAnyContainingText("Repository settings")).click();
     cy.xpath(getAnyContainingText("Delete repository")).click();
+    const chainableLabel = cy.xpath(getAnyContainingText("Rewrite text:"));
+    chainableLabel.then($label => {
+        chainableLabel.xpath("./ancestor::*[1]//input").type($label.get(0).textContent.replace(/.*"(.*)".*/g, "$1"));
+    });
+    cy.xpath(getAnyContainingText("CONFIRM")).click();
 };

@@ -1,10 +1,10 @@
 /// <reference types="cypress" />
-import {host, login} from "./shared";
-import {getAnyContainingText} from "./xPath";
+import {host, login} from "../fixtures/shared";
+import {getAnyContainingText} from "../fixtures/xPath";
 
 require('cypress-xpath');
 
-context('Login', () => {
+describe('Login', () => {
     beforeEach(() => {
         cy.visit(host);
         login();

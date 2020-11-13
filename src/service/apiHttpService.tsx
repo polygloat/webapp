@@ -81,6 +81,7 @@ export class ApiHttpService {
                     resolve(r);
                 }
             }).catch((e) => {
+                console.error(e);
                 errorActions.globalError.dispatch(new GlobalError("Error while loading resource", input.toString(), e));
             });
         });
