@@ -2,8 +2,6 @@
 import {host, login} from "../fixtures/shared";
 import {getAnyContainingText} from "../fixtures/xPath";
 
-require('cypress-xpath');
-
 describe('Login', () => {
     beforeEach(() => {
         cy.visit(host);

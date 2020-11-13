@@ -17,3 +17,11 @@ export const getAnyContainingAriaLabelAttribute = (text, tag = "*", nth = 1, all
 export const getInput = (name, nth = 1, allowWrapped = true) =>
     `//input[translate(@name,` +
     `'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz') = '${name.toLowerCase()}'][${nth}]`;
+
+
+export const getClosestContainingText = (text, tag = "*", nth = 1) =>
+    `./ancestor::*[.//*[${containsIgnoreCase("text()", text)}]][1]//*[contains(text(), "${text}")]`;
+
+export const containsIgnoreCase = (pathElementToContain: string, toBeContained: string) => {
+    return `contains(translate(${pathElementToContain}, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), '${toBeContained.toLowerCase()}')`;
+}

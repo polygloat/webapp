@@ -1,34 +1,35 @@
 /// <reference types="cypress" />
 import {createRepository, deleteRepository, host, login} from "../fixtures/shared";
-import {getAnyContainingText} from "../fixtures/xPath";
+import {getAnyContainingText, getClosestContainingText} from "../fixtures/xPath";
 import {clickAdd} from "../fixtures/global";
 
 describe('Api keys', () => {
     beforeEach(() => {
         cy.visit(host + '/apiKeys');
         login();
-        createRepository();
+        createRepository("Test");
     });
 
     afterEach(() => {
-        deleteRepository("Repository");
+        deleteRepository("Test", true);
     })
 
     it('Will add an api key', () => {
         cy.visit(host + '/apiKeys');
-        create();
-        cy.xpath(getAnyContainingText("Api Key:")).its("length").then(n => {
-            create();
-            cy.xpath(getAnyContainingText("Api Key:")).its("length").should('be.greaterThan', n);
-            del();
-        });
+        create("Test");
+        create("Test");
+        create("Test");
         del();
-    })
+        del();
+        del();
+    });
 });
 
 
-const create = () => {
+const create = async (repository: string) => {
     clickAdd();
+    cy.contains("Generate api key").xpath(getClosestContainingText("Application")).click();
+    cy.get(".MuiPopover-root").contains(repository).click();
     cy.xpath(getAnyContainingText("generate", "button")).click();
 };
 

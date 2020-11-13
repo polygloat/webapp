@@ -26,16 +26,17 @@ export const createRepository = (name = "Repository", languages = [{name: "Engli
     cy.xpath(getAnyContainingText("SAVE")).click();
 };
 
-export const deleteRepository = (name = "Repository") => {
+export const deleteRepository = (name = "Repository", force: boolean) => {
     cy.visit(host + "/repositories");
-    cy.xpath(getAnyContainingText("Repositories"));
-    cy.xpath(getAnyContainingText(name)).click();
+    cy.wait(1000)
+    cy.contains("Repositories").should("be.visible");
+    cy.xpath(getAnyContainingText(name)).click({force});
     cy.wait(500);
-    cy.xpath(getAnyContainingText("Repository settings")).click();
-    cy.xpath(getAnyContainingText("Delete repository")).click();
+    cy.xpath(getAnyContainingText("Repository settings")).click({force});
+    cy.xpath(getAnyContainingText("Delete repository")).click({force});
     const chainableLabel = cy.xpath(getAnyContainingText("Rewrite text:"));
     chainableLabel.then($label => {
-        chainableLabel.xpath("./ancestor::*[1]//input").type($label.get(0).textContent.replace(/.*"(.*)".*/g, "$1"));
+        chainableLabel.xpath("./ancestor::*[1]//input").type($label.get(0).textContent.replace(/.*"(.*)".*/g, "$1"), {force});
     });
-    cy.xpath(getAnyContainingText("CONFIRM")).click();
+    cy.xpath(getAnyContainingText("CONFIRM")).click({force});
 };
