@@ -12,7 +12,7 @@ import {TranslationListContext} from "./TtranslationsGridContextProvider";
 import {useRepository} from "../../hooks/useRepository";
 import {container} from "tsyringe";
 import {TranslationActions} from "../../store/repository/TranslationActions";
-import {T} from "polygloat-react";
+import {T} from "@polygloat/react";
 
 export const MenuBar: FunctionComponent = () => {
     let repositoryDTO = useRepository();

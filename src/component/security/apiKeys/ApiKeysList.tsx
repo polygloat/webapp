@@ -8,7 +8,7 @@ import {LINKS, PARAMS} from "../../../constants/links";
 import {container} from "tsyringe";
 import {UserApiKeysActions} from "../../../store/api_keys/UserApiKeysActions";
 import {useConfirmation} from "../../../hooks/useConfirmation";
-import {T} from "polygloat-react";
+import {T} from "@polygloat/react";
 
 interface ApiKeysListProps {
     data: ApiKeyDTO[]

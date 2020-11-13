@@ -3,7 +3,7 @@ import {FunctionComponent, useContext, useState} from 'react';
 import {Box, TablePagination} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import {TranslationListContext} from "./TtranslationsGridContextProvider";
-import {T} from "polygloat-react";
+import {T} from "@polygloat/react";
 
 export const Pagination: FunctionComponent = (props) => {
     const listContext = useContext(TranslationListContext);

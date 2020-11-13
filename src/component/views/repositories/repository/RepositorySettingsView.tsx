@@ -12,7 +12,7 @@ import {BaseFormView} from '../../BaseFormView';
 import {useRepository} from "../../../../hooks/useRepository";
 import {Button} from "@material-ui/core";
 import {useConfirmation} from "../../../../hooks/useConfirmation";
-import {T} from "polygloat-react";
+import {T} from "@polygloat/react";
 
 const actions = container.resolve(RepositoryActions);
 

@@ -19,7 +19,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import {useConfirmation} from '../../../../hooks/useConfirmation';
 import {useUser} from "../../../../hooks/useUser";
 import {PermissionEditDTO} from "../../../../service/response.types";
-import {T} from "polygloat-react";
+import {T} from "@polygloat/react";
 import {PermissionSelect} from "../../../security/PermissionSelect";
 
 export const RepositoryPermissionsView: FunctionComponent = () => {

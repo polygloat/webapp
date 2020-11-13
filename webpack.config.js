@@ -94,7 +94,8 @@ module.exports = env => {
                     sentryDsn: env.sentryDsn,
                     apiUrl: env.apiUrl,
                     polygloatApiKey: env.polygloatApiKey,
-                    polygloatApiUrl: env.polygloatApiUrl
+                    polygloatApiUrl: env.polygloatApiUrl,
+                    polygloatWithUI: env.polygloatWithUI
                 })
             })
         ],

@@ -15,7 +15,7 @@ import {ResourceErrorComponent} from "../common/form/ResourceErrorComponent";
 import {messageService} from "../../service/messageService";
 import {Validation} from "../../constants/GlobalValidationSchema";
 import {TranslationListContext} from "./TtranslationsGridContextProvider";
-import {useTranslate} from "polygloat-react";
+import {useTranslate} from "@polygloat/react";
 
 export type TranslationCreationValue = {
     source: string;

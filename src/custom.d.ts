@@ -11,6 +11,7 @@ declare module '*.woff2' {
 declare const environment: {
     polygloatApiKey: string;
     polygloatApiUrl: string;
+    polygloatWithUI: string;
     sentryDsn: string,
     mode: "production" | "development",
     apiUrl: string,
