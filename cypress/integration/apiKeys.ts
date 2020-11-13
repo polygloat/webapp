@@ -16,6 +16,7 @@ describe('Api keys', () => {
 
     it('Will add an api key', () => {
         cy.visit(host + '/apiKeys');
+        cy.wait(1000);
         create("Test");
         create("Test");
         create("Test");
