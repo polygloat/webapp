@@ -2,7 +2,7 @@
 import {getAnyContainingText, getInput} from "./xPath";
 import {clickAdd} from "./global";
 
-export const host = 'http://localhost:5000';
+export const host = Cypress.env("host") || 'http://localhost:5000';
 export const defaultUsername = Cypress.env("defaultUsername") || "admin";
 export const defaultPassword = Cypress.env("defaultPassword") || "admin";
 
