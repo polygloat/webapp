@@ -16,7 +16,6 @@ describe('Api keys', () => {
 
     it('Will add an api key', () => {
         cy.visit(host + '/apiKeys');
-        cy.wait(1000);
         create("Test");
         create("Test");
         create("Test");
@@ -28,6 +27,7 @@ describe('Api keys', () => {
 
 
 const create = async (repository: string) => {
+    cy.wait(1000);
     clickAdd();
     cy.contains("Generate api key").xpath(getClosestContainingText("Application")).click();
     cy.get(".MuiPopover-root").contains(repository).click();
