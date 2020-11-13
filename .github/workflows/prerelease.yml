@@ -30,6 +30,11 @@ jobs:
       - name: Run the tests
         run: npm run serve & npm run cy:run
 
+      - name: Set git globals
+        run: |
+          git config --local user.email "machine@polygloat.io"
+          git config --local user.name "Polygloat Machine"
+
       - name: Npm version
         run: npm version prerelease
 
