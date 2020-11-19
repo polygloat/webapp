@@ -1,6 +1,6 @@
 import {default as React, FunctionComponent} from 'react';
 import {DashboardPage} from '../layout/DashboardPage';
-import {BaseView} from '../views/BaseView';
+import {BaseView} from '../layout/BaseView';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import {Button} from '@material-ui/core';
 import {useSelector} from 'react-redux';
@@ -45,7 +45,7 @@ export const LoginView: FunctionComponent<LoginProps> = (props) => {
 
     return (
         <DashboardPage>
-            <BaseView title={<T>login_title</T>} lg={6} md={8} xs={12}>
+            <BaseView title={<T>login_title</T>} lg={4} md={6} sm={8} xs={12}>
                 {security.loginErrorCode &&
                 <Box mt={1}>
                     <Alert severity="error"><T>{security.loginErrorCode}</T></Alert>
@@ -70,7 +70,7 @@ export const LoginView: FunctionComponent<LoginProps> = (props) => {
                                       </Box>
                                       <Box display="flex">
                                           <Box flexGrow={1}>
-                                              {remoteConfig.authMethods.github !== null && remoteConfig.authMethods.github.enabled &&
+                                              {remoteConfig.authMethods.github?.enabled &&
                                               (
                                                   <Button component="a" href={gitHubUrl} size="large" endIcon={<GitHubIcon/>}>
                                                       <T>login_github_login_button</T>
@@ -78,7 +78,7 @@ export const LoginView: FunctionComponent<LoginProps> = (props) => {
                                               )}
                                           </Box>
                                           <Box display="flex" flexGrow={0}>
-                                              <Button color="primary" type="submit"><T>login_login_button</T></Button>
+                                              <Button variant="contained" color="primary" type="submit"><T>login_login_button</T></Button>
                                           </Box>
                                       </Box>
                                   </>}

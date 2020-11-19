@@ -47,14 +47,15 @@ export const TranslationsRow: FunctionComponent<TranslationProps> = (props) => {
         <Box display="flex" className={classes.lineBox}>
             <RowContext.Provider value={contextValue}>
                 {listContext.showCheckBoxes &&
-                <Box display="flex" alignItems="center" justifyContent="center" style={{width: 40}}>
+                <Box display="flex" alignItems="center" justifyContent="start" style={{width: 40}}>
                     <Checkbox onChange={() => listContext.toggleSourceChecked(contextValue.data.id)}
-                              checked={listContext.isSourceChecked(contextValue.data.id)} size="small" style={{padding: 3}}/>
+                              checked={listContext.isSourceChecked(contextValue.data.id)} size="small" style={{padding: 0}}/>
                 </Box>}
                 <Box display="flex" flexGrow={1} minWidth={0}>
+                    {listContext.showKeys &&
                     <TableCell>
                         <SourceCell/>
-                    </TableCell>
+                    </TableCell>}
 
 
                     {listContext.listLanguages.map(k =>

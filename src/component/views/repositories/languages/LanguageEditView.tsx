@@ -4,7 +4,7 @@ import {container} from 'tsyringe';
 import {LINKS, PARAMS} from '../../../../constants/links';
 import {useRouteMatch} from 'react-router-dom';
 import {TextField} from '../../../common/form/fields/TextField';
-import {BaseFormView} from '../../BaseFormView';
+import {BaseFormView} from '../../../layout/BaseFormView';
 import {LanguageActions} from '../../../../store/languages/LanguageActions';
 import {Button} from "@material-ui/core";
 import {useConfirmation} from "../../../../hooks/useConfirmation";

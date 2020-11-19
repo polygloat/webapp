@@ -34,7 +34,7 @@ export const StandardForm: FunctionComponent<FormProps> = ({initialValues, valid
                             <React.Fragment>
                                 {props.customActions && <Box flexGrow={1}>{props.customActions}</Box>}
                                 <Box>
-                                    <Button color="primary" disabled={props.loading || !formikProps.isValid} type="submit">
+                                    <Button color="primary" variant="outlined" disabled={props.loading || !formikProps.isValid} type="submit">
                                         {props.submitButtonInner || <T>global_form_save</T>}
                                     </Button>
                                     <Button disabled={props.loading}

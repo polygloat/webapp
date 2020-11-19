@@ -14,7 +14,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import {SettingsIconButton} from '../../common/buttons/SettingsIconButton';
 import {Link} from 'react-router-dom';
-import {BaseView} from '../BaseView';
+import {BaseView} from '../../layout/BaseView';
 import {EmptyListMessage} from "../../common/EmptyListMessage";
 import {PossibleRepositoryPage} from "../PossibleRepositoryPage";
 import {useTranslate} from "@polygloat/react";
@@ -40,7 +40,7 @@ export const RepositoryListView = connect((state: AppState) =>
             <PossibleRepositoryPage>
                 <BaseView title={t("repositories_title")} lg={5} md={7} loading={loading}>
                     {() => (
-                        <>
+                        <Box ml={-2}>
                             {repositories.length && <List>
                                 {repositories.map(r =>
                                     <ListItemLink
@@ -60,7 +60,7 @@ export const RepositoryListView = connect((state: AppState) =>
                             <Box display="flex" flexDirection="column" alignItems="flex-end" mt={2} pr={2}>
                                 <FabAddButtonLink to={LINKS.REPOSITORY_ADD.build()}/>
                             </Box>
-                        </>
+                        </Box>
                     )}
                 </BaseView>
             </PossibleRepositoryPage>

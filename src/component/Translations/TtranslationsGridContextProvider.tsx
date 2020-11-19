@@ -8,6 +8,7 @@ import {Loadable} from "../../store/AbstractLoadableActions";
 import {RepositoryPermissionType, TranslationsDataResponse} from "../../service/response.types";
 import {T, useTranslate} from "@polygloat/react";
 import {FullPageLoading} from "../common/FullPageLoading";
+import {useRepositoryLanguages} from "../../hooks/useRepositoryLanguages";
 
 export const TranslationListContext = React.createContext<TranslationListContextType>(null);
 
@@ -29,7 +30,11 @@ export type TranslationListContextType = {
     isSomeChecked: () => boolean
     checkedSources: Set<number>
     showCheckBoxes: boolean
+    showKeys: boolean,
+    setShowKeys: (showKeys: boolean) => void
 }
+
+const messaging = container.resolve(messageService);
 
 export const TranslationGridContextProvider: FunctionComponent = (props) => {
 
@@ -38,15 +43,22 @@ export const TranslationGridContextProvider: FunctionComponent = (props) => {
     let listLoadable = actions.useSelector(s => s.loadables.translations);
     let selectedLanguages = actions.useSelector(s => s.selectedLanguages);
     let translationSaveLoadable = actions.useSelector(s => s.loadables.setTranslations);
+    let sourceSaveLoadable = actions.useSelector(s => s.loadables.editSource);
+    let deleteLoadable = actions.useSelector(s => s.loadables.delete);
+    const repositoryLanguages = useRepositoryLanguages().reduce((acc, curr) => ({...acc, [curr.abbreviation]: curr.name}), {});
 
     const t = useTranslate();
-
     const [perPage, setPerPage] = useState(20);
+    const [showKeys, setShowKeys] = useState(true);
+    const [checkedSources, setCheckedSources] = useState(new Set<number>());
+    const [_resetEdit, setResetEdit] = useState(() => () => {
+    });
 
-    let messaging = container.resolve(messageService);
 
     const loadData = (search?: string, limit?: number, offset?: number) => {
         setPerPage(limit || perPage);
+        const lastLoadOffset = listLoadable?.dispatchParams?.[4];
+        offset = offset !== undefined ? offset : lastLoadOffset
         actions.loadableActions.translations.dispatch(
             repositoryDTO.id, selectedLanguages.length ? selectedLanguages : null, search, limit || perPage, offset
         );
@@ -57,15 +69,6 @@ export const TranslationGridContextProvider: FunctionComponent = (props) => {
             loadData();
         }
     }, [selectedLanguages]);
-
-    const [checkedSources, setCheckedSources] = useState(new Set<number>());
-
-    //set state accepts also a function, thats why the funcion returns function - to handle the react call
-    const [_resetEdit, setResetEdit] = useState(() => () => {
-    });
-
-    let sourceSaveLoadable = actions.useSelector(s => s.loadables.editSource);
-    let deleteLoadable = actions.useSelector(s => s.loadables.delete);
 
 
     useEffect(() => {
@@ -121,8 +124,6 @@ export const TranslationGridContextProvider: FunctionComponent = (props) => {
         return <FullPageLoading/>
     }
 
-    const headerCells = [t("translation_grid_source_text"), ...listLoadable.data.params.languages].map((h, index) => <b key={index}>{h}</b>);
-
     const isSourceChecked = (name) => checkedSources.has(name);
 
     const isAllChecked = () => {
@@ -132,6 +133,9 @@ export const TranslationGridContextProvider: FunctionComponent = (props) => {
     const isSomeChecked = () => {
         return listLoadable.data.data.filter(i => isSourceChecked(i.id)).length > 0;
     };
+
+    const headerCells = showKeys ? [<b>{t("translation_grid_key_text")}</b>] : [];
+    headerCells.push(...listLoadable.data.params.languages.map((abbr, index) => <b key={index}>{repositoryLanguages[abbr]}</b>));
 
     const contextValue: TranslationListContextType = {
         checkAllToggle: () => {
@@ -164,7 +168,9 @@ export const TranslationGridContextProvider: FunctionComponent = (props) => {
         isAllChecked,
         isSomeChecked,
         checkedSources,
-        showCheckBoxes: repositoryDTO.permissionType === RepositoryPermissionType.MANAGE
+        showCheckBoxes: repositoryDTO.permissionType === RepositoryPermissionType.MANAGE,
+        showKeys,
+        setShowKeys
     };
 
     return (

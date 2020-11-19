@@ -7,7 +7,7 @@
  * @returns {string}
  */
 export const getAnyContainingText = (text, tag = "*", nth = 1, allowWrapped = true) =>
-    `//${tag}${allowWrapped ? "//*" : ""}[contains(translate(text(),` +
+    `//${tag}${allowWrapped ? "/descendant-or-self::*" : ""}[contains(translate(text(),` +
     `'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), '${text.toLowerCase()}')][${nth}]`;
 
 export const getAnyContainingAriaLabelAttribute = (text, tag = "*", nth = 1, allowWrapped = true) =>

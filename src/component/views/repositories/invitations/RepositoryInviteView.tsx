@@ -2,7 +2,7 @@ import {default as React, FunctionComponent, useEffect} from 'react';
 import {useRouteMatch} from 'react-router-dom';
 import {LINKS, PARAMS} from '../../../../constants/links';
 import {Button, TextField} from '@material-ui/core';
-import {BaseView} from '../../BaseView';
+import {BaseView} from '../../../layout/BaseView';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../../../store';
 import {container} from 'tsyringe';

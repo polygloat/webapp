@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {LanguageDTO} from "../../service/response.types";
 import {ActionType} from "../Action";
 import {LanguageActions} from "../languages/LanguageActions";
-import {selectedLanguagesService} from "../../service/selectedLanguagesService";
+import {repositoryPreferencesService} from "../../service/repositoryPreferencesService";
 
 export class TranslationsState extends StateWithLoadables<TranslationActions> {
     selectedLanguages: string[] = [];
@@ -18,7 +18,7 @@ const languageActions = container.resolve(LanguageActions);
 
 @singleton()
 export class TranslationActions extends AbstractLoadableActions<TranslationsState> {
-    constructor(private selectedLanguagesService: selectedLanguagesService) {
+    constructor(private selectedLanguagesService: repositoryPreferencesService) {
         super(new TranslationsState());
     }
 

@@ -22,12 +22,10 @@ export const SearchField: FunctionComponent = (props) => {
 
 
     return (
-        <Box flexGrow={1}>
-            <TextField id="standard-search"
-                       label={<T>translations_search_field_label</T>}
-                       type="search"
-                       value={search}
-                       onChange={(e) => setSearch(e.target.value)}/>
-        </Box>
+        <TextField id="standard-search"
+                   label={<T>translations_search_field_label</T>}
+                   type="search"
+                   value={search}
+                   onChange={(e) => setSearch(e.target.value)}/>
     );
 };

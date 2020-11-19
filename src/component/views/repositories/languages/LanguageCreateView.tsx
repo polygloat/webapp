@@ -4,7 +4,7 @@ import {container} from 'tsyringe';
 import {LINKS, PARAMS} from '../../../../constants/links';
 import {Route, Switch, useRouteMatch} from 'react-router-dom';
 import {TextField} from '../../../common/form/fields/TextField';
-import {BaseFormView} from '../../BaseFormView';
+import {BaseFormView} from '../../../layout/BaseFormView';
 import {LanguageActions} from '../../../../store/languages/LanguageActions';
 import {LanguageDTO} from "../../../../service/response.types";
 import {useRedirect} from "../../../../hooks/useRedirect";

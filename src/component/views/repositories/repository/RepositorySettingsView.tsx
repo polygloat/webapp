@@ -8,7 +8,7 @@ import {LINKS} from '../../../../constants/links';
 import {Redirect} from 'react-router-dom';
 import * as Yup from 'yup';
 import {TextField} from '../../../common/form/fields/TextField';
-import {BaseFormView} from '../../BaseFormView';
+import {BaseFormView} from '../../../layout/BaseFormView';
 import {useRepository} from "../../../../hooks/useRepository";
 import {Button} from "@material-ui/core";
 import {useConfirmation} from "../../../../hooks/useConfirmation";

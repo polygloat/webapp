@@ -65,6 +65,7 @@ export const LocaleMenu: FunctionComponent<{ className?: string }> = (props) => 
                         <MenuItem
                             selected={getCurrentLanguage() === abbr}
                             value={abbr}
+                            key={abbr}
                             onClick={() => {
                                 handleClose();
                                 setLanguage(abbr);

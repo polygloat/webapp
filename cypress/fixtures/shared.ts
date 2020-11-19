@@ -1,12 +1,12 @@
 /// <reference types="cypress" />
-import {getAnyContainingText, getInput} from "./xPath";
-import {clickAdd} from "./global";
+import {getAnyContainingAriaLabelAttribute, getAnyContainingText, getInput} from "./xPath";
 
 export const host = Cypress.env("host") || 'http://localhost:5000';
 export const defaultUsername = Cypress.env("defaultUsername") || "admin";
 export const defaultPassword = Cypress.env("defaultPassword") || "admin";
 
 export const login = (username = defaultUsername, password = defaultPassword) => {
+    cy.visit(host + "/login");
     cy.xpath('//input[@name="username"]')
         .type(username).should('have.value', username);
     cy.xpath('//input[@name="password"]')
@@ -21,8 +21,13 @@ export const createRepository = (name = "Repository", languages = [{name: "Engli
     cy.wait(500);
     clickAdd();
     cy.xpath(getInput("name")).type(name);
-    cy.xpath(getInput("languages.0.name")).type(languages[0].name);
-    cy.xpath(getInput("languages.0.abbreviation")).type(languages[0].abbreviation);
+    languages.forEach((language, index) => {
+        cy.xpath(getInput(`languages.${index}.name`)).type(language.name);
+        cy.xpath(getInput(`languages.${index}.abbreviation`)).type(language.abbreviation);
+        if (index !== languages.length - 1) {
+
+        }
+    })
     cy.xpath(getAnyContainingText("SAVE")).click();
 };
 
@@ -31,12 +36,19 @@ export const deleteRepository = (name = "Repository", force: boolean) => {
     cy.wait(1000)
     cy.contains("Repositories").should("be.visible");
     cy.xpath(getAnyContainingText(name)).click({force});
-    cy.wait(500);
+    cy.wait(100);
     cy.xpath(getAnyContainingText("Repository settings")).click({force});
     cy.xpath(getAnyContainingText("Delete repository")).click({force});
-    const chainableLabel = cy.xpath(getAnyContainingText("Rewrite text:"));
-    chainableLabel.then($label => {
-        chainableLabel.xpath("./ancestor::*[1]//input").type($label.get(0).textContent.replace(/.*"(.*)".*/g, "$1"), {force});
-    });
+    const label = cy.xpath(getAnyContainingText("Rewrite text:")+"/ancestor::*[1]//input");
+    label.type(name.toUpperCase(), {force});
     cy.xpath(getAnyContainingText("CONFIRM")).click({force});
 };
+
+export const clickAdd = () => {
+    cy.wait(100);
+    cy.xpath(getAnyContainingAriaLabelAttribute("add")).click();
+};
+
+export const getPopover = () => {
+   return cy.xpath("//*[contains(@class, 'MuiPopover-root') and not(contains(@style, 'visibility'))]")
+}

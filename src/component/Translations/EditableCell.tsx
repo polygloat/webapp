@@ -22,16 +22,14 @@ export interface EditableCellProps {
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     textBox: {
-        // overflowWrap: "anywhere",
-        // wordBreak: "break-all",
         maxWidth: "100%",
-        // position: "relative"
     },
     editButton: {
         opacity: "0.1",
-        padding: 0,/*
-        position: "absolute",
-        right: 0*/
+        padding: 0,
+        "&.Mui-focusVisible": {
+            opacity: 1
+        }
     }
 }));
 
@@ -91,7 +89,12 @@ export const EditableCell: FunctionComponent<EditableCellProps> = (props) => {
 
     if (!editing) {
         return <Box onClick={handleEdit}
-                    style={{cursor: props.editEnabled ? "pointer" : "initial"}} display="flex" alignItems="center" maxWidth="100%" className={classes.textBox}>
+                    style={{cursor: props.editEnabled ? "pointer" : "initial"}}
+                    display="flex"
+                    alignItems="center"
+                    maxWidth="100%"
+                    className={classes.textBox}
+        >
             {
                 overflow ?
                     <>

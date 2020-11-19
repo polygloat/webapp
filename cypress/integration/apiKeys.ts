@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import {createRepository, deleteRepository, host, login} from "../fixtures/shared";
+import {createRepository, deleteRepository, getPopover, host, login} from "../fixtures/shared";
 import {getAnyContainingText, getClosestContainingText} from "../fixtures/xPath";
 import {clickAdd} from "../fixtures/global";
 
@@ -29,7 +29,7 @@ describe('Api keys', () => {
 const create = async (repository: string) => {
     clickAdd();
     cy.contains("Generate api key").xpath(getClosestContainingText("Application")).click();
-    cy.get(".MuiPopover-root").contains(repository).click();
+    getPopover().contains(repository).click();
     cy.xpath(getAnyContainingText("generate", "button")).click();
 };
 

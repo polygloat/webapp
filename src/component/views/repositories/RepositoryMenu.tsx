@@ -26,7 +26,6 @@ export const RepositoryMenu = ({id}) => {
 
     return (
         <div>
-            <Divider/>
             <List>
                 <SideMenuItem linkTo={LINKS.REPOSITORIES.build({[PARAMS.REPOSITORY_ID]: id})}
                               icon={<DynamicFeedIcon/>} text={t("repository_menu_repositories")}/>

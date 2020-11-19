@@ -2,7 +2,7 @@ import {default as React, FunctionComponent, useEffect} from 'react';
 import {container} from 'tsyringe';
 import {TextField} from '../common/form/fields/TextField';
 import {Validation} from "../../constants/GlobalValidationSchema";
-import {BaseFormView} from "../views/BaseFormView";
+import {BaseFormView} from "../layout/BaseFormView";
 import {SetPasswordFields} from "../security/SetPasswordFields";
 import {UserActions} from "../../store/global/userActions";
 import {UserUpdateDTO} from "../../service/request.types";

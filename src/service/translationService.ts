@@ -3,12 +3,12 @@ import {ApiHttpService} from './apiHttpService';
 import {messageService} from './messageService';
 import {TranslationsDataResponse, TranslationsObject} from './response.types';
 import {TranslationCreationValue} from "../component/Translations/TranslationCreationDialog";
-import {selectedLanguagesService} from "./selectedLanguagesService";
+import {repositoryPreferencesService} from "./repositoryPreferencesService";
 
 
 @singleton()
 export class translationService {
-    constructor(private http: ApiHttpService, private messaging: messageService, private selectedLanguagesService: selectedLanguagesService) {
+    constructor(private http: ApiHttpService, private messaging: messageService, private selectedLanguagesService: repositoryPreferencesService) {
     }
 
     public getTranslations = async (repositoryId: number, langs?: string[], search?: string, limit?: number, offset?: number): Promise<TranslationsDataResponse> => {
