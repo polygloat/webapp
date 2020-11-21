@@ -1,6 +1,6 @@
 import {default as React, FunctionComponent, useContext} from "react";
 import {Box, Button, IconButton, Slide, Tooltip, useTheme, FormGroup, FormControlLabel, Switch} from "@material-ui/core";
-import {useConfirmation} from "../../hooks/useConfirmation";
+import {confirmation} from "../../hooks/confirmation";
 import DeleteIcon from "@material-ui/icons/Delete";
 import {LanguagesMenu} from "../common/form/LanguagesMenu";
 import {SearchField} from "./SearchField";
@@ -29,14 +29,15 @@ export const MenuBar: FunctionComponent = () => {
                             <Tooltip title={<T>translations_delete_selected</T>}>
                                 <IconButton color="secondary"
                                             onClick={() =>
-                                                useConfirmation()({
+                                                confirmation({
                                                     onConfirm: () => actions.loadableActions.delete
-                                                        .dispatch(repositoryDTO.id, Array.from(listContext.checkedSources)),
+                                                        .dispatch(repositoryDTO.id, Array.from(listContext.checkedKeys)),
                                                     confirmButtonText: "Delete",
                                                     confirmButtonColor: "secondary",
-                                                    message: `Are you sure you want to delete all checked ` +
-                                                        `(${listContext.checkedSources.size}) translation sources?`,
-                                                    title: "Delete confirmation"
+                                                    message: <T parameters={{count: listContext.checkedKeys.size.toString()}}>
+                                                        translations_key_delete_confirmation_text
+                                                    </T>,
+                                                    title: <T>global_delete_confirmation</T>
                                                 })
                                             }>
                                     <DeleteIcon/>
@@ -46,7 +47,7 @@ export const MenuBar: FunctionComponent = () => {
                     </Slide>
                     <Box flexGrow={1} display="flex" alignItems="flex-end">
                         <Box pr={2}>
-                            <LanguagesMenu/>
+                            <LanguagesMenu context="translations"/>
                         </Box>
                         <Box pr={2}>
                             <SearchField/>

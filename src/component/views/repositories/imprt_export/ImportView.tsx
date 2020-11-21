@@ -68,7 +68,7 @@ export const ImportView: FunctionComponent = () => {
 
     const entries = data && Object.entries(data);
 
-    const Line = ([source, translation]) => <Box>{source}: {translation}</Box>;
+    const Line = ([key, translation]) => <Box>{key}: {translation}</Box>;
 
     const Preview = () => {
 

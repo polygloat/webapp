@@ -4,12 +4,12 @@ import {dispatchService} from '../service/dispatchService';
 export type ActionType<PayloadType> = { type: string, payload: PayloadType, meta?: any, params?: any[] };
 export type StateModifier<StateType, PayloadType> = (state: StateType, action: ActionType<PayloadType>) => StateType;
 
-export abstract class AbstractAction<PayloadType = any, StateType = any> {
+export abstract class AbstractAction<PayloadType = any, StateType = any, DispatchParams extends any[] = any[]> {
     protected constructor(public type: string,
                           public payloadProvider?: (...params: any[]) => PayloadType, public meta?: object) {
     }
 
-    dispatch(...params: Parameters<this['payloadProvider']>) {
+    dispatch(...params: DispatchParams) {
         container.resolve(dispatchService).dispatch({
             type: this.type,
             meta: {...this.meta, params: params},
@@ -18,10 +18,10 @@ export abstract class AbstractAction<PayloadType = any, StateType = any> {
     }
 }
 
-export class Action<PayloadType = any, StateType = any> extends AbstractAction<PayloadType, StateType> {
+export class Action<PayloadType, StateType, DispatchParams extends any[]> extends AbstractAction<PayloadType, StateType, DispatchParams> {
 
     build = {
-        on: (callback: StateModifier<StateType, PayloadType>): Action<PayloadType, StateType> => {
+        on: (callback: StateModifier<StateType, PayloadType>): Action<PayloadType, StateType, DispatchParams> => {
             this.stateModifier = callback;
             return this;
         }

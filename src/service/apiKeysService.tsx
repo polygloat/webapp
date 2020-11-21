@@ -22,17 +22,17 @@ export class apiKeysService {
 
     generateApiKey = async (val: { repositoryId: number, scopes: string[] }): Promise<ApiKeyDTO> => {
         const res: ApiKeyDTO = await this.http.post(`${BASE}`, val);
-        this.messages.success(<T>Api key successfully generated!</T>);
+        this.messages.success(<T>api_key_successfully_generated</T>);
         return res;
     };
 
     edit = async (dto: EditApiKeyDTO): Promise<void> => {
         await this.http.post(`${BASE}/edit`, dto);
-        this.messages.success(<T>Api key successfully edited!</T>);
+        this.messages.success(<T>api_key_successfully_edited</T>);
     }
 
     delete = async (key: string): Promise<void> => {
         await this.http.delete(`${BASE}/${key}`);
-        this.messages.success(<T>Api key successfully edited!</T>);
+        this.messages.success(<T>api_key_successfully_deleted</T>);
     }
 }

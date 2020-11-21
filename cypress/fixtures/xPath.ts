@@ -7,8 +7,8 @@
  * @returns {string}
  */
 export const getAnyContainingText = (text, tag = "*", nth = 1, allowWrapped = true) =>
-    `//${tag}${allowWrapped ? "/descendant-or-self::*" : ""}[contains(translate(text(),` +
-    `'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), '${text.toLowerCase()}')][${nth}]`;
+    `//${tag}${allowWrapped ? "/descendant-or-self::*" : ""}/text()[contains(translate(.,` +
+    `'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), '${text.toLowerCase()}')][${nth}]/parent::*`;
 
 export const getAnyContainingAriaLabelAttribute = (text, tag = "*", nth = 1, allowWrapped = true) =>
     `//${tag}${allowWrapped ? "//*" : ""}[contains(translate(@aria-label,` +

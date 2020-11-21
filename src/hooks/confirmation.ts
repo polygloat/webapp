@@ -2,10 +2,7 @@ import {container} from 'tsyringe';
 import {GlobalActions} from '../store/global/globalActions';
 import {ConfirmationDialogProps} from "../component/common/ConfirmationDialog";
 
-export const useConfirmation = (defaultOptions: ConfirmationDialogProps = {}) => {
+export const confirmation = (options: ConfirmationDialogProps = {}) => {
     const globalActions = container.resolve(GlobalActions);
-
-    return (options: ConfirmationDialogProps) => {
-        globalActions.openConfirmation.dispatch({...options, ...defaultOptions});
-    };
+    globalActions.openConfirmation.dispatch({...options});
 };

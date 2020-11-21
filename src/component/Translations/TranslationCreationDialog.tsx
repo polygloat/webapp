@@ -18,7 +18,7 @@ import {TranslationListContext} from "./TtranslationsGridContextProvider";
 import {useTranslate} from "@polygloat/react";
 
 export type TranslationCreationValue = {
-    source: string;
+    key: string;
     translations: { [abbreviation: string]: string }
 }
 
@@ -34,12 +34,12 @@ export function TranslationCreationDialog() {
 
     let selectedLanguages = translationActions.useSelector(s => s.selectedLanguages);
 
-    let saveLoadable = translationActions.useSelector(s => s.loadables.createSource);
+    let saveLoadable = translationActions.useSelector(s => s.loadables.createKey);
 
     let listContext = useContext(TranslationListContext);
 
     function onClose() {
-        translationActions.loadableReset.createSource.dispatch();
+        translationActions.loadableReset.createKey.dispatch();
         redirectionActions.redirect.dispatch(LINKS.REPOSITORY_TRANSLATIONS.build({[PARAMS.REPOSITORY_ID]: repositoryDTO.id}));
     }
 
@@ -52,7 +52,7 @@ export function TranslationCreationDialog() {
     }, [saveLoadable.error, saveLoadable.loaded]);
 
     function onSubmit(v) {
-        translationActions.loadableActions.createSource.dispatch(repositoryDTO.id, v);
+        translationActions.loadableActions.createKey.dispatch(repositoryDTO.id, v);
     }
 
     const initialTranslations = selectedLanguages.reduce((res, l) => ({...res, [l]: ''}), {});
@@ -69,12 +69,12 @@ export function TranslationCreationDialog() {
             <DialogContent>
                 {saveLoadable && saveLoadable.error && <ResourceErrorComponent error={saveLoadable.error}/>}
 
-                <LanguagesMenu/>
+                <LanguagesMenu context="creation-dialog"/>
                 <StandardForm onSubmit={onSubmit}
-                              initialValues={{source: "", translations: initialTranslations}}
-                              validationSchema={Validation.SOURCE_TRANSLATION_CREATION(selectedLanguages)}
+                              initialValues={{key: "", translations: initialTranslations}}
+                              validationSchema={Validation.KEY_TRANSLATION_CREATION(selectedLanguages)}
                               onCancel={() => onClose()}>
-                    <TextField multiline name="source" label={t("translation_grid_source_text")} fullWidth/>
+                    <TextField multiline name="key" label={t("translation_grid_key_text")} fullWidth/>
 
                     {selectedLanguages.map(s => (
                         <TextField multiline key={s} name={"translations." + s} label={s}/>

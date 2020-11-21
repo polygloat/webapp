@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import {host, login} from "../fixtures/shared";
+import {HOST, login} from "../fixtures/shared";
 import {getAnyContainingText} from "../fixtures/xPath";
 
 describe('Login', () => {

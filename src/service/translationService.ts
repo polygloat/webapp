@@ -20,20 +20,20 @@ export class translationService {
         return result;
     };
 
-    createSource = (repositoryId: number, value: TranslationCreationValue) => this.http.post(`repository/${repositoryId}/sources/create`, {
-        key: value.source,
+    createKey = (repositoryId: number, value: TranslationCreationValue) => this.http.post(`repository/${repositoryId}/keys/create`, {
+        key: value.key,
         translations: value.translations
     });
 
     set = (repositoryId: number, dto: { key: string, translations: { [abbreviation: string]: string } }) =>
         this.http.post(`repository/${repositoryId}/translations`, dto);
 
-    editSource = (repositoryId: number, dto: { oldFullPathString: string, newFullPathString: string }) =>
-        this.http.post(`repository/${repositoryId}/sources/edit`, dto);
+    editKey = (repositoryId: number, dto: { oldFullPathString: string, newFullPathString: string }) =>
+        this.http.post(`repository/${repositoryId}/keys/edit`, dto);
 
     setTranslations = (repositoryId: number, dto: { key: string, translations: TranslationsObject }) =>
         this.http.post(`repository/${repositoryId}/translations/set`, dto);
 
-    deleteSource = (repositoryId: number, ids: number[]) =>
-        this.http.delete(`repository/${repositoryId}/sources`, ids);
+    deleteKey = (repositoryId: number, ids: number[]) =>
+        this.http.delete(`repository/${repositoryId}/keys`, ids);
 }

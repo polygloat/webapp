@@ -36,7 +36,7 @@ module.exports = env => {
                 },
                 {
                     test: /\.tsx?$/,
-                    use: [isDevelopment && "ts-loader" || "babel-loader"],
+                    use: ["ts-loader"],
                     exclude: [/node_modules/, /lib/],
                 }, {
                     test: /\.svg$/,

@@ -5,5 +5,6 @@
   "Api key list label - Repository" : "Dépôt ",
   "Api keys title" : "Mes clés API",
   "translations_language_select_label" : "Langues",
-  "translation_add" : "Ajouter"
+  "translation_add" : "Ajouter",
+  "add_translation_dialog_title" : ""
 }

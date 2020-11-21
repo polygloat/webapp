@@ -9,7 +9,6 @@
   "repository_menu_export" : "Export",
   "repositories_title" : "Repozitáře",
   "translation_add" : "Přidat",
-  "pagination_rows_per_page" : "Řádků na stránku:",
   "pagination_displayed_rows" : "{{from}}-{{to}} z {{count}}",
   "translation_grid_source_text" : "Zdrojový text",
   "login_title" : "Přihlášení",
@@ -66,7 +65,6 @@
   "User settings - E-mail" : "E-mailová adresa",
   "Password" : "Heslo",
   "Password confirmation" : "Potvrzení hesla",
-  "No api keys yet!" : "Zatím tu nejsou žádné api klíče",
   "Api keys title" : "Moje api klíče",
   "Api key list label - Scopes" : "Rozsah:",
   "Api key list label - Repository" : "Repozitář:",
@@ -83,6 +81,13 @@
   "set_at_least_one_language_error" : "Vyberte alespoň jeden jazyk.",
   "edit_repository_permissions_title" : "Oprávnění",
   "Api key list label - Api Key" : "API klíč:",
+  "No api keys yet!" : "Zatím tu nejsou žádné api klíče!",
   "repository_menu_api_keys" : "Api klíče",
-  "add_translation_dialog_title" : "Přidat překlad"
+  "add_translation_dialog_title" : "Přidat překlad",
+  "pagination_rows_per_page" : "Na stránku:",
+  "translation_grid_key_text" : "Klíč",
+  "show_keys" : "Zobrazovat klíče",
+  "api_key_successfully_generated" : "Api klíč úspěšně vytvořen",
+  "api_key_successfully_edited" : "Api klíč úspěšně upraven!",
+  "api_key_successfully_deleted" : "API klíč úspěšně odstraněn!"
 }

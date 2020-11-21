@@ -59,7 +59,7 @@ export class ApiHttpService {
                     redirectionActions.redirect.dispatch(LINKS.LOGIN.build());
                 }
                 if (r.status >= 500) {
-                    errorActions.globalError.dispatch(new Error('Server responded with error status.'));
+                    errorActions.globalError.dispatch(new GlobalError('Server responded with error status.'));
                     throw new Error('Error status code from server');
                 }
                 if (r.status == 403) {

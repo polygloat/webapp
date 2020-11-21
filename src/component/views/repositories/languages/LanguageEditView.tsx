@@ -7,17 +7,18 @@ import {TextField} from '../../../common/form/fields/TextField';
 import {BaseFormView} from '../../../layout/BaseFormView';
 import {LanguageActions} from '../../../../store/languages/LanguageActions';
 import {Button} from "@material-ui/core";
-import {useConfirmation} from "../../../../hooks/useConfirmation";
+import {confirmation} from "../../../../hooks/confirmation";
 import {LanguageDTO} from "../../../../service/response.types";
 import {Validation} from "../../../../constants/GlobalValidationSchema";
 import {useRedirect} from "../../../../hooks/useRedirect";
 import {T} from "@polygloat/react";
+import {ConfirmationDialogProps} from "../../../common/ConfirmationDialog";
 
 const actions = container.resolve(LanguageActions);
 
 export const LanguageEditView = () => {
 
-    let confirmation = useConfirmation({title: "Delete language"});
+    let confirmation = (options: ConfirmationDialogProps) => confirmation({title: "Delete language", ...options});
 
     let match = useRouteMatch();
 

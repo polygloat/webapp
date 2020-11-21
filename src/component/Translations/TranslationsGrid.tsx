@@ -49,7 +49,7 @@ export const TranslationsGrid: FunctionComponent = (props) => {
         <BaseView title="Translations" headerChildren={topPart} loading={listContext.listLoadable.loading}>
             {listContext.listLoadable.data ?
                 <Box display="flex" justifyContent="flex-end">
-                    <Box display="flex" flexDirection="column" flexGrow={1} maxWidth="100%" fontSize={14}>
+                    <Box display="flex" flexDirection="column" flexGrow={1} fontSize={14}>
                         <Header/>
                         {listContext.listLoadable.data.data.map(t => <TranslationsRow key={t.name} data={t}/>)}
                     </Box>
@@ -57,7 +57,7 @@ export const TranslationsGrid: FunctionComponent = (props) => {
                 :
                 <BoxLoading/>
             }
-            <Box mr={2}>
+            <Box>
                 <Pagination/>
             </Box>
         </BaseView>

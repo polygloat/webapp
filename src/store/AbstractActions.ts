@@ -19,8 +19,9 @@ export abstract class AbstractActions<StateType> {
         this._initialState = initialState;
     }
 
-    createAction<PayloadType>(type: string, payloadProvider?: (...params: any[]) => PayloadType): Action {
-        let action = new Action<PayloadType, StateType>(`${this.prefix}_${type}`, payloadProvider);
+    createAction<PayloadType, DispatchParams extends any[]>(type: string, payloadProvider?: (...params: DispatchParams) => PayloadType):
+        Action<PayloadType, StateType, DispatchParams> {
+        let action = new Action<PayloadType, StateType, DispatchParams>(`${this.prefix}_${type}`, payloadProvider);
         this.register(action);
         return action;
     }

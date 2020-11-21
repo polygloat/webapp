@@ -10,7 +10,6 @@ export interface TranslationsTableCellProps {
 
 export const TableCell: FunctionComponent<TranslationsTableCellProps> = (props) => {
 
-
     let rowContext = useContext(RowContext);
     let listContext = useContext(TranslationListContext);
 

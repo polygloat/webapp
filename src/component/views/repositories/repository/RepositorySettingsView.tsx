@@ -11,8 +11,9 @@ import {TextField} from '../../../common/form/fields/TextField';
 import {BaseFormView} from '../../../layout/BaseFormView';
 import {useRepository} from "../../../../hooks/useRepository";
 import {Button} from "@material-ui/core";
-import {useConfirmation} from "../../../../hooks/useConfirmation";
+import {confirmation} from "../../../../hooks/confirmation";
 import {T} from "@polygloat/react";
+import {ConfirmationDialogProps} from "../../../common/ConfirmationDialog";
 
 const actions = container.resolve(RepositoryActions);
 
@@ -28,7 +29,7 @@ export const RepositorySettingsView: FunctionComponent = () => {
 
     let repository = useRepository();
 
-    let confirmation = useConfirmation({title: <T>delete_repository_dialog_title</T>});
+    let confirmation = (options: ConfirmationDialogProps) => confirmation({title: <T>delete_repository_dialog_title</T>, ...options});
 
     const onSubmit = (values) => {
         actions.loadableActions.editRepository.dispatch(repository.id, values);

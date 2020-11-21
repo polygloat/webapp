@@ -93,7 +93,7 @@ export class Validation {
         )
     });
 
-    static readonly TRANSLATION_SOURCE = Yup.string().required();
+    static readonly TRANSLATION_KEY = Yup.string().required();
 
     static readonly TRANSLATION_TRANSLATION = Yup.string();
 
@@ -107,10 +107,10 @@ export class Validation {
             abbreviation: Validation.LANGUAGE_ABBREVIATION
         });
 
-    static readonly SOURCE_TRANSLATION_CREATION = (langs: string[]) => {
+    static readonly KEY_TRANSLATION_CREATION = (langs: string[]) => {
         let translationValidation = langs.reduce((validation, lang) =>
             ({...validation, ["translations." + lang]: Validation.TRANSLATION_TRANSLATION}), {});
-        return Yup.object().shape({source: Validation.TRANSLATION_SOURCE, ...translationValidation});
+        return Yup.object().shape({key: Validation.TRANSLATION_KEY, ...translationValidation});
     };
 
     static readonly REPOSITORY_CREATION = Yup.object().shape(

@@ -8,14 +8,17 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {PropTypes, TextField} from "@material-ui/core";
 import Box from "@material-ui/core/Box";
+import {T} from '@polygloat/react';
 
 export class ConfirmationDialogProps {
     open?: boolean = true;
-    message?: ReactNode = 'Are you sure?';
-    confirmButtonText?: ReactNode = 'Confirm';
-    title?: ReactNode = 'Confirmation';
+    message?: ReactNode = <T>Are you sure?</T>;
+    confirmButtonText?: ReactNode = <T>Confirm</T>;
+    cancelButtonText?: ReactNode = <T>Cancel</T>;
+    title?: ReactNode = <T>Confirmation</T>;
     hardModeText?: string = null;
     confirmButtonColor?: PropTypes.Color = "primary";
+    cancelButtonColor?: PropTypes.Color = "secondary";
 
     onCancel?: () => void = () => {
     };
@@ -63,8 +66,8 @@ export default function ConfirmationDialog(props: ConfirmationDialogProps) {
                     }
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={props.onCancel} color="primary">
-                        Cancel
+                    <Button onClick={props.onCancel} type="button" color={props.cancelButtonColor}>
+                        {props.cancelButtonText}
                     </Button>
                     <Button
                         color={props.confirmButtonColor}

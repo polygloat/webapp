@@ -8,7 +8,6 @@
   "repository_menu_export" : "Export",
   "repositories_title" : "Repositories",
   "translation_add" : "Add",
-  "pagination_rows_per_page" : "Rows per page:",
   "pagination_displayed_rows" : "{{from}}-{{to}} of {{count}}",
   "translation_grid_source_text" : "Source text",
   "repository_menu_translations" : "Translations",
@@ -46,6 +45,7 @@
   "invite_user_invitation_cancel_button" : "Cancel",
   "global_empty_list_message" : "This list is empty. Add something to continue.",
   "invite_user_permission_label" : "Invited user can:",
+  "pagination_rows_per_page" : "Per page:",
   "edit_repository_permissions_title" : "Permissions",
   "repository_permission_label" : "permission:",
   "import_translations_title" : "Import translations",
@@ -84,5 +84,10 @@
   "bad_credentials" : "Invalid credentials",
   "repository_menu_api_keys" : "Api keys",
   "Api key list label - Api Key" : "API key:",
-  "add_translation_dialog_title" : "Add translation"
+  "add_translation_dialog_title" : "Add translation",
+  "translation_grid_key_text" : "Key",
+  "show_keys" : "Show keys",
+  "api_key_successfully_generated" : "Api key successfully created",
+  "api_key_successfully_edited" : "Api key successfully edited!",
+  "api_key_successfully_deleted" : "Api key successfully deleted!"
 }

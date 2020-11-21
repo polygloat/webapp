@@ -1,20 +1,20 @@
 import * as React from 'react';
 import {FunctionComponent, useContext} from 'react';
-import {SourceTranslationsDTO} from "../../service/response.types";
+import {KeyTranslationsDTO} from "../../service/response.types";
 import {Box, Checkbox, Theme} from "@material-ui/core";
 import {TableCell} from "./TableCell";
-import {SourceCell} from "./SourceCell";
+import {KeyCell} from "./KeyCell";
 import {TranslationCell} from "./TranslationCell";
 import {grey} from "@material-ui/core/colors";
 import {TranslationListContext} from "./TtranslationsGridContextProvider";
 import {createStyles, makeStyles} from "@material-ui/core/styles";
 
 export interface TranslationProps {
-    data: SourceTranslationsDTO
+    data: KeyTranslationsDTO
 }
 
 export type RowContextType = {
-    data: SourceTranslationsDTO,
+    data: KeyTranslationsDTO,
     lastRendered: number,
 }
 
@@ -48,13 +48,13 @@ export const TranslationsRow: FunctionComponent<TranslationProps> = (props) => {
             <RowContext.Provider value={contextValue}>
                 {listContext.showCheckBoxes &&
                 <Box display="flex" alignItems="center" justifyContent="start" style={{width: 40}}>
-                    <Checkbox onChange={() => listContext.toggleSourceChecked(contextValue.data.id)}
-                              checked={listContext.isSourceChecked(contextValue.data.id)} size="small" style={{padding: 0}}/>
+                    <Checkbox onChange={() => listContext.toggleKeyChecked(contextValue.data.id)}
+                              checked={listContext.isKeyChecked(contextValue.data.id)} size="small" style={{padding: 0}}/>
                 </Box>}
                 <Box display="flex" flexGrow={1} minWidth={0}>
                     {listContext.showKeys &&
                     <TableCell>
-                        <SourceCell/>
+                        <KeyCell/>
                     </TableCell>}
 
 

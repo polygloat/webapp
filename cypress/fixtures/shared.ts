@@ -1,12 +1,12 @@
 /// <reference types="cypress" />
 import {getAnyContainingAriaLabelAttribute, getAnyContainingText, getInput} from "./xPath";
+import {USERNAME, PASSWORD, HOST} from "./constants";
+import {Scope} from "./types";
 
-export const host = Cypress.env("host") || 'http://localhost:5000';
-export const defaultUsername = Cypress.env("defaultUsername") || "admin";
-export const defaultPassword = Cypress.env("defaultPassword") || "admin";
+export const allScopes: Scope[] = ["keys.edit", "translations.edit", "translations.view"];
 
-export const login = (username = defaultUsername, password = defaultPassword) => {
-    cy.visit(host + "/login");
+export const login = (username = PASSWORD, password = USERNAME) => {
+    cy.visit(HOST + "/login");
     cy.xpath('//input[@name="username"]')
         .type(username).should('have.value', username);
     cy.xpath('//input[@name="password"]')
@@ -17,7 +17,7 @@ export const login = (username = defaultUsername, password = defaultPassword) =>
 };
 
 export const createRepository = (name = "Repository", languages = [{name: "English", abbreviation: "en"}]) => {
-    cy.visit(host + "/repositories");
+    cy.visit(HOST + "/repositories");
     cy.wait(500);
     clickAdd();
     cy.xpath(getInput("name")).type(name);
@@ -32,7 +32,7 @@ export const createRepository = (name = "Repository", languages = [{name: "Engli
 };
 
 export const deleteRepository = (name = "Repository", force: boolean) => {
-    cy.visit(host + "/repositories");
+    cy.visit(HOST + "/repositories");
     cy.wait(1000)
     cy.contains("Repositories").should("be.visible");
     cy.xpath(getAnyContainingText(name)).click({force});
@@ -51,4 +51,8 @@ export const clickAdd = () => {
 
 export const getPopover = () => {
    return cy.xpath("//*[contains(@class, 'MuiPopover-root') and not(contains(@style, 'visibility'))]")
+}
+
+export const getDialog = () => {
+    return cy.xpath("//*[contains(@class, 'MuiDialog-root')]")
 }
