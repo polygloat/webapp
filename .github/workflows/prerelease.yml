@@ -38,8 +38,12 @@ jobs:
       - name: Npm version
         run: npm version prerelease
 
-      - name: Git push
-        run: git push --tags
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          tags: true
 
       - uses: actions/upload-artifact@v2
         if: always()
