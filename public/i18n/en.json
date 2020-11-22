@@ -84,10 +84,17 @@
   "bad_credentials" : "Invalid credentials",
   "repository_menu_api_keys" : "Api keys",
   "Api key list label - Api Key" : "API key:",
+  "global_delete_confirmation" : "Delete confirmation",
   "add_translation_dialog_title" : "Add translation",
   "translation_grid_key_text" : "Key",
   "show_keys" : "Show keys",
   "api_key_successfully_generated" : "Api key successfully created",
   "api_key_successfully_edited" : "Api key successfully edited!",
-  "api_key_successfully_deleted" : "Api key successfully deleted!"
+  "api_key_successfully_deleted" : "Api key successfully deleted!",
+  "translations_key_delete_confirmation_text" : "Are you sure you want to delete all {{count}} checked keys and their translations?",
+  "translations_leave_save_confirmation" : "Leave changes?",
+  "translations_leave_save_confirmation_message" : "Do you want to discard your change from \"{{initialValue}}\" to \"{{newValue}}\"?",
+  "back_to_editing" : "Back to editing",
+  "discard_changes" : "Discard changes",
+  "username_already_exists" : "User name already exists."
 }

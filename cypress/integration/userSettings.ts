@@ -4,7 +4,7 @@ import {HOST} from "../fixtures/constants";
 import {createRepository, createTestRepository, createUser, deleteUser, login} from "../fixtures/apiCalls";
 import {getPopover} from "../fixtures/shared";
 
-describe('Login', () => {
+describe('User settings', () => {
     beforeEach(() => {
         login();
         cy.visit(HOST);

@@ -83,11 +83,18 @@
   "Api key list label - Api Key" : "API klíč:",
   "No api keys yet!" : "Zatím tu nejsou žádné api klíče!",
   "repository_menu_api_keys" : "Api klíče",
+  "global_delete_confirmation" : "Potvrzení smazání",
   "add_translation_dialog_title" : "Přidat překlad",
   "pagination_rows_per_page" : "Na stránku:",
   "translation_grid_key_text" : "Klíč",
   "show_keys" : "Zobrazovat klíče",
   "api_key_successfully_generated" : "Api klíč úspěšně vytvořen",
   "api_key_successfully_edited" : "Api klíč úspěšně upraven!",
-  "api_key_successfully_deleted" : "API klíč úspěšně odstraněn!"
+  "api_key_successfully_deleted" : "API klíč úspěšně odstraněn!",
+  "translations_key_delete_confirmation_text" : "Skutečně chcete smazat všech {{count}} klíčů a jejich překladů?",
+  "translations_leave_save_confirmation_message" : "",
+  "translations_leave_save_confirmation" : "",
+  "back_to_editing" : "",
+  "discard_changes" : "",
+  "username_already_exists" : "Uživatelské jméno už existuje."
 }
