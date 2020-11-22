@@ -47,13 +47,13 @@ export const LoginView: FunctionComponent<LoginProps> = (props) => {
         <DashboardPage>
             <BaseView title={<T>login_title</T>} lg={4} md={6} sm={8} xs={12}>
                 {security.loginErrorCode &&
-                <Box mt={1}>
+                <Box mt={1} ml={-2} mr={-2}>
                     <Alert severity="error"><T>{security.loginErrorCode}</T></Alert>
                 </Box>
                 }
                 <StandardForm initialValues={{username: '', password: ''}}
                               submitButtons={
-                                  <>
+                                  <Box ml={-1.5}>
                                       <Box display="flex" justifyContent="space-between">
                                           <Box>
                                               {security.allowRegistration &&
@@ -81,7 +81,7 @@ export const LoginView: FunctionComponent<LoginProps> = (props) => {
                                               <Button variant="contained" color="primary" type="submit"><T>login_login_button</T></Button>
                                           </Box>
                                       </Box>
-                                  </>}
+                                  </Box>}
                               onSubmit={(v) => {
                                   globalActions.login.dispatch(v);
                               }}>

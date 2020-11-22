@@ -5,17 +5,6 @@ import {Scope} from "./types";
 
 export const allScopes: Scope[] = ["keys.edit", "translations.edit", "translations.view"];
 
-export const login = (username = PASSWORD, password = USERNAME) => {
-    cy.visit(HOST + "/login");
-    cy.xpath('//input[@name="username"]')
-        .type(username).should('have.value', username);
-    cy.xpath('//input[@name="password"]')
-        .type(password).should('have.value', password);
-    cy.xpath("//button//*[text() = 'Login']").click();
-    cy.xpath(getAnyContainingText("Login")).should("not.be.visible");
-    cy.xpath("//*[@aria-controls='user-menu']");
-};
-
 export const createRepository = (name = "Repository", languages = [{name: "English", abbreviation: "en"}]) => {
     cy.visit(HOST + "/repositories");
     cy.wait(500);

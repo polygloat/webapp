@@ -2,7 +2,7 @@ import {clickAdd, getPopover} from "../fixtures/shared";
 import {getAnyContainingAriaLabelAttribute, getAnyContainingText, getClosestContainingText} from "../fixtures/xPath";
 import {createRepository, deleteRepository, login, setTranslations} from "../fixtures/apiCalls";
 import {HOST} from "../fixtures/constants";
-import {RepositoryDTO} from "../../src/service/response.types";
+import {RepositoryDTO} from "../../src/service/response.types"
 
 describe('Translations', () => {
     let repository: RepositoryDTO = null
@@ -40,15 +40,29 @@ describe('Translations', () => {
             promises.push(setTranslations(repository.id, `Cool key ${i.toString().padStart(2, "0")}`, {"en": "Cool"}))
         }
         Cypress.Promise.all(promises).then(() => {
-            cy.xpath(getAnyContainingText("Per page:")).xpath(getClosestContainingText("20")).click();
-            getPopover().xpath(getClosestContainingText("10")).click()
-            cy.xpath(getAnyContainingAriaLabelAttribute("Next page")).click()
+            setPerPage(20, 10)
+            goToNextPage();
             cy.contains("key 11").should("be.visible")
             cy.contains("key 20").should("be.visible")
-            cy.xpath(getAnyContainingAriaLabelAttribute("Previous page")).click()
+            goToPreviousPage();
             cy.contains("key 01").should("be.visible")
             cy.contains("key 10").should("be.visible")
             cy.contains("1-10 of 20").should("be.visible")
+        })
+    })
+
+    it("will ask for confirmation on page change", () => {
+        const promises = []
+        for (let i = 1; i < 15; i++) {
+            promises.push(setTranslations(repository.id, `Cool key ${i.toString().padStart(2, "0")}`, {"en": "Cool"}))
+        }
+        Cypress.Promise.all(promises).then(() => {
+            setPerPage(20, 10)
+            editKey("Cool key 01", "Cool key edited", false);
+            goToNextPage();
+            cy.contains(`Do you want to discard your change from "Cool key 01" to "Cool key edited"?`).should("be.visible");
+            cy.contains("Discard changes").click();
+            cy.contains("Cool key 14").xpath("./parent::*//button[@type='button']").should("be.visible");
         })
     })
 
@@ -82,7 +96,7 @@ describe('Translations', () => {
             cy.contains("Cool key 01").xpath("./parent::div/button[@aria-label='edit']").click()
             cy.contains("Cool key 01").type("{backspace}{backspace}edited");
             cy.contains("Cool key edited").xpath("./parent::*//button[@type='submit']").click()
-            cy.contains("Cool key edited").xpath("./parent::*//button[@type='submit']").should("not.be.visible");
+            cy.xpath(`${getAnyContainingText("Cool key edited")}/parent::*//button[@type='submit']`).should("not.be.visible");
             cy.contains("Cool key edited").should("be.visible");
             cy.contains("Cool key 02").should("be.visible");
             cy.contains("Cool key 04").should("be.visible");
@@ -92,17 +106,35 @@ describe('Translations', () => {
             cy.contains("Cool translated text 1").last().xpath("./parent::div/button[@aria-label='edit']").click()
             cy.contains("Cool translated text 1").clear().type("Super cool changed text...");
             cy.contains("Super cool changed text...").xpath("./parent::*//button[@type='submit']").click()
-            cy.contains("Super cool changed text...").xpath("./parent::*//button[@type='submit']").should("not.be.visible");
+            cy.xpath(`${getAnyContainingText("Super cool changed text...")}/parent::*//button[@type='submit']`).should("not.be.visible");
             cy.contains("Super cool changed text...").should("be.visible");
             cy.contains("Cool translated text 2").should("be.visible");
         })
 
         it("will cancel key edit", () => {
-            cy.contains("Cool key 01").xpath("./parent::div/button[@aria-label='edit']").click()
+            cy.contains("Cool key 01").xpath("./parent::div/button[@aria-label='edit']").click();
             cy.contains("Cool key 01").type("{backspace}{backspace}edited");
-            cy.contains("Cool key edited").xpath("./parent::*//button[@type='button']").click()
+            cy.contains("Cool key edited").xpath("./parent::*//button[@type='button']").click();
+            cy.contains("Do you want to discard your change from").should("be.visible");
+            cy.contains("Discard changes").click();
             cy.contains("Cool key edited").should("not.be.visible");
             cy.contains("Cool key 01").should("be.visible");
+        })
+
+        it("will ask for confirmation on changed edit", () => {
+            editKey("Cool key 01", "Cool key edited", false);
+            cy.contains("Cool key 04").xpath("./parent::div/button[@aria-label='edit']").click();
+            cy.contains(`Do you want to discard your change from "Cool key 01" to "Cool key edited"?`).should("be.visible");
+            cy.contains("Discard changes").click();
+            cy.contains("Cool key 04").xpath("./parent::*//button[@type='button']").should("be.visible");
+        })
+
+        it("will ask for confirmation on per page change", () => {
+            editKey("Cool key 01", "Cool key edited", false);
+            setPerPage(20, 10);
+            cy.contains(`Do you want to discard your change from "Cool key 01" to "Cool key edited"?`).should("be.visible");
+            cy.contains("Discard changes").click();
+            cy.contains("Cool key 04").xpath("./parent::*//button[@type='button']").should("be.visible");
         })
 
         describe("Options", () => {
@@ -141,6 +173,14 @@ describe('Translations', () => {
     }
 });
 
+const editKey = (oldValue: string, newValue: string, save: boolean = true) => {
+    cy.contains(oldValue).xpath("./parent::div/button[@aria-label='edit']").click();
+    cy.contains("Cool key 01").clear().type(newValue);
+    if (save) {
+        cy.contains("Super cool changed text...").xpath("./parent::*//button[@type='submit']").click()
+    }
+}
+
 function createTranslation(testKey: string, testTranslated: string, options: { isFirst?: boolean }) {
     if (options?.isFirst) {
         clickAdd();
@@ -150,5 +190,18 @@ function createTranslation(testKey: string, testTranslated: string, options: { i
     cy.xpath("//textarea[@name='key']").type(testKey);
     cy.xpath("//textarea[@name='translations.en']").type(testTranslated);
     cy.xpath(getAnyContainingText("save")).click();
+}
+
+function setPerPage(current: number, newValue: number) {
+    cy.xpath(getAnyContainingText("Per page:")).xpath(getClosestContainingText(current.toString())).click();
+    getPopover().contains(newValue.toString()).click()
+}
+
+function goToNextPage() {
+    cy.xpath(getAnyContainingAriaLabelAttribute("Next page")).click()
+}
+
+function goToPreviousPage() {
+    cy.xpath(getAnyContainingAriaLabelAttribute("Previous page")).click()
 }
 

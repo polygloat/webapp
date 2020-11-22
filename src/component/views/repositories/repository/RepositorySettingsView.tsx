@@ -25,11 +25,10 @@ export const RepositorySettingsView: FunctionComponent = () => {
 
     const loadable = useSelector((state: AppState) => state.repositories.loadables.editRepository);
     const saveLoadable = useSelector((state: AppState) => state.repositories.loadables.editRepository);
-    const deleteLoadable = useSelector((state: AppState) => state.repositories.loadables.deleteRepository);
 
     let repository = useRepository();
 
-    let confirmation = (options: ConfirmationDialogProps) => confirmation({title: <T>delete_repository_dialog_title</T>, ...options});
+    let confirm = (options: ConfirmationDialogProps) => confirmation({title: <T>delete_repository_dialog_title</T>, ...options});
 
     const onSubmit = (values) => {
         actions.loadableActions.editRepository.dispatch(repository.id, values);
@@ -67,7 +66,7 @@ export const RepositorySettingsView: FunctionComponent = () => {
                           })}
                       customActions={
                           <Button color="secondary" variant="outlined" onClick={() => {
-                              confirmation({
+                              confirm({
                                   message: <T parameters={{name: repository.name}}>delete_repository_confirmation_message</T>,
                                   onConfirm: () => actions.loadableActions.deleteRepository.dispatch(repository.id),
                                   hardModeText: repository.name.toUpperCase()
