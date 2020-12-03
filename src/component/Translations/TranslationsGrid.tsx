@@ -13,12 +13,6 @@ import {FabAddButtonLink} from "../common/buttons/FabAddButtonLink";
 import {MenuBar} from "./MenuBar";
 import {BaseView} from "../layout/BaseView";
 
-
-const topPart = (
-    <MenuBar/>
-)
-
-
 export const TranslationsGrid: FunctionComponent = (props) => {
     let repositoryDTO = useRepository();
 
@@ -26,33 +20,23 @@ export const TranslationsGrid: FunctionComponent = (props) => {
     const isEmpty = listContext.listLoadable.data.paginationMeta.allCount === 0;
     const isSearch = listContext.listLoadable.data.params.search;
 
-    if (isEmpty) {
-        if (isSearch) {
-            return (<>
-                {topPart}
-                <EmptyListMessage/>
-            </>)
-        }
-        return (
-            <>
-                <>
-                    <EmptyListMessage/>
-                    <Box display="flex" justifyContent="center">
-                        <FabAddButtonLink to={LINKS.REPOSITORY_TRANSLATIONS_ADD.build({[PARAMS.REPOSITORY_ID]: repositoryDTO.id})}/>
-                    </Box>
-                </>
-            </>
-        )
-    }
+    const onEmptyInner = (
+        <>
+            <EmptyListMessage/>
+            {!isSearch &&
+            <Box display="flex" justifyContent="center">
+                <FabAddButtonLink to={LINKS.REPOSITORY_TRANSLATIONS_ADD.build({[PARAMS.REPOSITORY_ID]: repositoryDTO.id})}/>
+            </Box>
+            }
+        </>
+    );
 
-    return (
-        <BaseView title="Translations" headerChildren={topPart} loading={listContext.listLoadable.loading}>
+    const onNotEmptyInner = (
+        <>
             {listContext.listLoadable.data ?
-                <Box display="flex" justifyContent="flex-end">
-                    <Box display="flex" flexDirection="column" flexGrow={1} fontSize={14}>
-                        <Header/>
-                        {listContext.listLoadable.data.data.map(t => <TranslationsRow key={t.name} data={t}/>)}
-                    </Box>
+                <Box display="flex" flexDirection="column" flexGrow={1} fontSize={14}>
+                    <Header/>
+                    {listContext.listLoadable.data.data.map(t => <TranslationsRow key={t.name} data={t}/>)}
                 </Box>
                 :
                 <BoxLoading/>
@@ -60,6 +44,12 @@ export const TranslationsGrid: FunctionComponent = (props) => {
             <Box>
                 <Pagination/>
             </Box>
+        </>
+    );
+
+    return (
+        <BaseView title="Translations" headerChildren={isSearch || !isEmpty ? <MenuBar/> : null} loading={listContext.listLoadable.loading}>
+            {isEmpty ? onEmptyInner : onNotEmptyInner}
         </BaseView>
     )
 };

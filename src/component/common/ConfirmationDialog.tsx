@@ -18,7 +18,7 @@ export class ConfirmationDialogProps {
     title?: ReactNode = <T>Confirmation</T>;
     hardModeText?: string = null;
     confirmButtonColor?: PropTypes.Color = "primary";
-    cancelButtonColor?: PropTypes.Color = "secondary";
+    cancelButtonColor?: PropTypes.Color = "default";
 
     onCancel?: () => void = () => {
     };
