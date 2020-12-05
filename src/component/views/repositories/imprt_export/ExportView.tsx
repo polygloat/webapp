@@ -1,14 +1,14 @@
 import {default as React, FunctionComponent, useEffect} from 'react';
 import {useRouteMatch} from 'react-router-dom';
 import {PARAMS} from '../../../../constants/links';
-import {BaseView} from '../../BaseView';
+import {BaseView} from '../../../layout/BaseView';
 import {Box, Button} from "@material-ui/core";
 import {container} from "tsyringe";
 import {ImportExportActions} from "../../../../store/repository/ImportExportActions";
 import {useSelector} from "react-redux";
 import {AppState} from "../../../../store";
 import {useRepository} from "../../../../hooks/useRepository";
-import {T} from "polygloat-react";
+import {T} from "@polygloat/react";
 
 const actions = container.resolve(ImportExportActions);
 

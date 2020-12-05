@@ -9,10 +9,10 @@ import {TranslationActions} from "../../../store/repository/TranslationActions";
 import Input from "@material-ui/core/Input";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {messageService} from "../../../service/messageService";
-import {T} from "polygloat-react";
+import {T} from "@polygloat/react";
 
 export interface LanguagesMenuProps {
-    // context: 'creation' | 'view'
+    context: string
 }
 
 const actions = container.resolve(TranslationActions);
@@ -55,6 +55,7 @@ export const LanguagesMenu: FunctionComponent<LanguagesMenuProps> = (props) => {
                 width: 250,
             },
         },
+        id: `language-select-${props.context}-menu`,
         onExit: onLanguageMenuExit
     };
 
@@ -63,8 +64,8 @@ export const LanguagesMenu: FunctionComponent<LanguagesMenuProps> = (props) => {
             <FormControl>
                 <InputLabel id="languages"><T>translations_language_select_label</T></InputLabel>
                 <Select
-                    labelId="languages"
-                    id="languages-select"
+                    labelId={`languages-${props.context}`}
+                    id={`languages-select-${props.context}`}
                     multiple
                     value={localSelected}
                     onChange={e => langsChange(e)}

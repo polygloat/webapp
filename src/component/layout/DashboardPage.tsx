@@ -33,8 +33,6 @@ const useStyles = makeStyles(theme => ({
         overflow: 'auto',
     },
     container: {
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4),
     },
 }));
 
@@ -55,8 +53,7 @@ export const DashboardPage: FunctionComponent<DashboardPageProps> = ({children, 
                 <Box display="flex" flexDirection="column" flexGrow={1} minHeight="100%">
                     {!props.repositoryName && <div className={classes.appBarSpacer}/>}
                     <Box flexGrow={1}>
-                        <Container maxWidth={props.fullWidth ? false : "lg"} className={classes.container}>
-                            <Box mt={2}/>
+                        <Container maxWidth={false} className={classes.container}>
                             <Grid container spacing={3}>
                                 {children}
                             </Grid>

@@ -2,7 +2,7 @@ import {default as React, FunctionComponent, useEffect, useState} from 'react';
 import {useRouteMatch} from 'react-router-dom';
 import {PARAMS} from '../../../../constants/links';
 import {Button} from '@material-ui/core';
-import {BaseView} from '../../BaseView';
+import {BaseView} from '../../../layout/BaseView';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../../../store';
 import {container} from 'tsyringe';
@@ -16,11 +16,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import {MicroForm} from '../../../common/form/MicroForm';
 import CloseIcon from '@material-ui/icons/Close';
 import CheckIcon from '@material-ui/icons/Check';
-import {useConfirmation} from '../../../../hooks/useConfirmation';
+import {confirmation} from '../../../../hooks/confirmation';
 import {useUser} from "../../../../hooks/useUser";
 import {PermissionEditDTO} from "../../../../service/response.types";
-import {T} from "polygloat-react";
+import {T} from "@polygloat/react";
 import {PermissionSelect} from "../../../security/PermissionSelect";
+import {ConfirmationDialogProps} from "../../../common/ConfirmationDialog";
 
 export const RepositoryPermissionsView: FunctionComponent = () => {
 
@@ -37,7 +38,7 @@ export const RepositoryPermissionsView: FunctionComponent = () => {
         }
     }, [state.loadables.list.loaded]);
 
-    let confirmation = useConfirmation({title: 'Revoke access'});
+    let confirmation = (options: ConfirmationDialogProps) => confirmation({title: 'Revoke access', ...options});
 
     const userData = useUser();
 

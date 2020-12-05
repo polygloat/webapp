@@ -101,7 +101,7 @@ export abstract class AbstractLoadableActions<StateType extends StateWithLoadabl
         return this._loadableActions;
     }
 
-    public get loadableReset(): { [K in keyof this['loadableDefinitions']]: Action<never, StateType> } {
+    public get loadableReset(): { [K in keyof this['loadableDefinitions']]: Action<never, StateType, []> } {
         const loadableResets = {};
         for (let loadableName in this.loadableDefinitions) {
             loadableResets[loadableName] = this.createAction(loadableName.toUpperCase() + "_RESET").build.on((state: StateWithLoadables<any>) => {

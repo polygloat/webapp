@@ -2,7 +2,7 @@ import {ChangeEvent, default as React, FunctionComponent, useEffect, useState} f
 import {useRouteMatch} from 'react-router-dom';
 import {PARAMS} from '../../../../constants/links';
 import {Box, Button, FormHelperText, Input, LinearProgress} from '@material-ui/core';
-import {BaseView} from '../../BaseView';
+import {BaseView} from '../../../layout/BaseView';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../../../store';
 
@@ -11,7 +11,7 @@ import {TextField} from "../../../common/form/fields/TextField";
 import {object, string} from "yup";
 import {ImportExportActions} from "../../../../store/repository/ImportExportActions";
 import {container} from "tsyringe";
-import {T} from 'polygloat-react';
+import {T} from '@polygloat/react';
 
 type SubtreeType = { [key: string]: string | object };
 const actions = container.resolve(ImportExportActions);
@@ -68,7 +68,7 @@ export const ImportView: FunctionComponent = () => {
 
     const entries = data && Object.entries(data);
 
-    const Line = ([source, translation]) => <Box>{source}: {translation}</Box>;
+    const Line = ([key, translation]) => <Box>{key}: {translation}</Box>;
 
     const Preview = () => {
 

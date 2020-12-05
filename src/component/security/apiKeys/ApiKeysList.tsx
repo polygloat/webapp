@@ -7,8 +7,8 @@ import {Link} from "react-router-dom";
 import {LINKS, PARAMS} from "../../../constants/links";
 import {container} from "tsyringe";
 import {UserApiKeysActions} from "../../../store/api_keys/UserApiKeysActions";
-import {useConfirmation} from "../../../hooks/useConfirmation";
-import {T} from "polygloat-react";
+import {confirmation} from "../../../hooks/confirmation";
+import {T} from "@polygloat/react";
 
 interface ApiKeysListProps {
     data: ApiKeyDTO[]
@@ -18,7 +18,7 @@ const actions = container.resolve(UserApiKeysActions);
 
 const onDelete = (dto: ApiKeyDTO) => {
     const onConfirm = () => actions.loadableActions.delete.dispatch(dto.key);
-    useConfirmation()({title: "Delete api key", message: "Do you really want to delete api key " + dto.key + "?", onConfirm});
+    confirmation({title: "Delete api key", message: "Do you really want to delete api key " + dto.key + "?", onConfirm});
 };
 
 const Item: FunctionComponent<{ keyDTO: ApiKeyDTO }> = (props) => {

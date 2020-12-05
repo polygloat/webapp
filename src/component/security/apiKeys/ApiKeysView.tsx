@@ -1,5 +1,5 @@
 import {default as React, FunctionComponent, useEffect} from 'react';
-import {BaseView} from '../../views/BaseView';
+import {BaseView} from '../../layout/BaseView';
 import {container} from 'tsyringe';
 import {UserApiKeysActions} from "../../../store/api_keys/UserApiKeysActions";
 import {Route, Switch, useRouteMatch} from 'react-router-dom';
@@ -9,7 +9,7 @@ import {FormDialog} from "./FormDialog";
 import {ApiKeysList} from "./ApiKeysList";
 import {EmptyListMessage} from "../../common/EmptyListMessage";
 import {PossibleRepositoryPage} from "../../views/PossibleRepositoryPage";
-import {T} from "polygloat-react";
+import {T} from "@polygloat/react";
 
 export const ApiKeysView: FunctionComponent = () => {
 

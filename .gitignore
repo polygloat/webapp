@@ -4,3 +4,5 @@ dist
 /cypress/integration/examples/
 polygloatRestructure.webapp.iml
 .env.dev
+cypress/videos
+cypress/screenshots

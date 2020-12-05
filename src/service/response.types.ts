@@ -1,6 +1,6 @@
 export type TranslationsObject = { [abbreviation: string]: string };
 
-export type SourceTranslationsDTO = {
+export type KeyTranslationsDTO = {
     name: string,
     id: number,
     translations: TranslationsObject
@@ -20,7 +20,7 @@ export type TranslationsDataResponse = {
         search: string,
         languages: string[],
     }
-    data: SourceTranslationsDTO[]
+    data: KeyTranslationsDTO[]
 }
 
 export type RepositoryDTO = {

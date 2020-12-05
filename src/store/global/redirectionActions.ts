@@ -13,7 +13,7 @@ export class RedirectionActions extends AbstractActions<RedirectionState> {
         super(new RedirectionState());
     }
 
-    redirect = this.createAction('DO', to => to).build.on(
+    redirect = this.createAction('DO', (to: string) => to).build.on(
         (state, action) => ({...state, to: action.payload})
     );
 

@@ -72,7 +72,7 @@ export class GlobalActions extends AbstractLoadableActions<GlobalState> {
             };
         });
 
-    setJWTToken = this.createAction('SET_JWT', token => token).build.on(
+    setJWTToken = this.createAction('SET_JWT', (token: string) => token).build.on(
         (state, action) => {
             return {
                 ...state,
@@ -120,8 +120,6 @@ export class GlobalActions extends AbstractLoadableActions<GlobalState> {
         sideMenuOpen: !state.sideMenuOpen
     } as GlobalState));
 
-
-    readonly setInvitationCode = this.createAction('SET_INVITATION_CODE').build.on((state: GlobalState) => ({}));
 
     get prefix(): string {
         return 'GLOBAL';

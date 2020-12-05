@@ -12,7 +12,7 @@ import {SignUpActions} from '../../store/global/signUpActions';
 import {TextField} from '../common/form/fields/TextField';
 import {useConfig} from "../../hooks/useConfig";
 import {Validation} from "../../constants/GlobalValidationSchema";
-import {BaseFormView} from "../views/BaseFormView";
+import {BaseFormView} from "../layout/BaseFormView";
 
 const actions = container.resolve(SignUpActions);
 

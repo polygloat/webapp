@@ -5,7 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import withStyles from "@material-ui/core/styles/withStyles";
 import LanguageIcon from '@material-ui/icons/Language';
-import {useCurrentLanguage, useSetLanguage} from "polygloat-react";
+import {useCurrentLanguage, useSetLanguage} from "@polygloat/react";
 
 export const LocaleMenu: FunctionComponent<{ className?: string }> = (props) => {
     const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -49,9 +49,12 @@ export const LocaleMenu: FunctionComponent<{ className?: string }> = (props) => 
     return (
         <>
             <div>
-                <Button style={{padding: 0}} endIcon={<KeyboardArrowDownIcon/>} color="inherit" aria-controls="user-menu" aria-haspopup="true"
-                        onClick={handleOpen}><LanguageIcon/></Button>
-                <StyledMenu id="user-menu" keepMounted
+                <Button style={{padding: 0}} endIcon={<KeyboardArrowDownIcon/>}
+                        color="inherit"
+                        aria-controls="language-menu" aria-haspopup="true"
+                        onClick={handleOpen}><LanguageIcon/>
+                </Button>
+                <StyledMenu id="language-menu" keepMounted
                             open={!!anchorEl}
                             anchorEl={anchorEl}
                             onClose={handleClose}
@@ -62,6 +65,7 @@ export const LocaleMenu: FunctionComponent<{ className?: string }> = (props) => 
                         <MenuItem
                             selected={getCurrentLanguage() === abbr}
                             value={abbr}
+                            key={abbr}
                             onClick={() => {
                                 handleClose();
                                 setLanguage(abbr);

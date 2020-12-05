@@ -3,12 +3,12 @@ import {ApiHttpService} from './apiHttpService';
 import {messageService} from './messageService';
 import {TranslationsDataResponse, TranslationsObject} from './response.types';
 import {TranslationCreationValue} from "../component/Translations/TranslationCreationDialog";
-import {selectedLanguagesService} from "./selectedLanguagesService";
+import {repositoryPreferencesService} from "./repositoryPreferencesService";
 
 
 @singleton()
 export class translationService {
-    constructor(private http: ApiHttpService, private messaging: messageService, private selectedLanguagesService: selectedLanguagesService) {
+    constructor(private http: ApiHttpService, private messaging: messageService, private selectedLanguagesService: repositoryPreferencesService) {
     }
 
     public getTranslations = async (repositoryId: number, langs?: string[], search?: string, limit?: number, offset?: number): Promise<TranslationsDataResponse> => {
@@ -20,21 +20,20 @@ export class translationService {
         return result;
     };
 
-    createSource = (repositoryId: number, value: TranslationCreationValue) => this.http.post(`repository/${repositoryId}/sources/create`, {
-        sourceFullPath: value.source,
+    createKey = (repositoryId: number, value: TranslationCreationValue) => this.http.post(`repository/${repositoryId}/keys/create`, {
+        key: value.key,
         translations: value.translations
     });
 
-    set = (repositoryId: number, dto: { sourceFullPath: string, translations: { [abbreviation: string]: string } }) =>
+    set = (repositoryId: number, dto: { key: string, translations: { [abbreviation: string]: string } }) =>
         this.http.post(`repository/${repositoryId}/translations`, dto);
 
-    editSource = (repositoryId: number, dto: { oldFullPathString: string, newFullPathString: string }) =>
-        this.http.post(`repository/${repositoryId}/sources/edit`, dto);
+    editKey = (repositoryId: number, dto: { oldFullPathString: string, newFullPathString: string }) =>
+        this.http.post(`repository/${repositoryId}/keys/edit`, dto);
 
-    setTranslations = (repositoryId: number, dto: { sourceFullPath: string, translations: TranslationsObject }) =>
+    setTranslations = (repositoryId: number, dto: { key: string, translations: TranslationsObject }) =>
         this.http.post(`repository/${repositoryId}/translations/set`, dto);
 
-    deleteSource = (repositoryId: number, ids: number[]) =>
-        this.http.delete(`repository/${repositoryId}/sources`, ids);
-
+    deleteKey = (repositoryId: number, ids: number[]) =>
+        this.http.delete(`repository/${repositoryId}/keys`, ids);
 }

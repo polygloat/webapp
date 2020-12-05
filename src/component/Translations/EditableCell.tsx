@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FunctionComponent, useContext, useEffect, useState} from 'react';
+import {FunctionComponent, useEffect, useState} from 'react';
 import {Box, Theme, Tooltip, Typography} from "@material-ui/core";
 import {MicroForm} from "../common/form/MicroForm";
 import {EasyInput} from "../common/form/fields/EasyInput";
@@ -9,52 +9,41 @@ import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import * as Yup from 'yup';
 import {EditIconButton} from "../common/buttons/EditIconButton";
-import {TranslationListContext} from "./TtranslationsGridContextProvider";
 import EditIcon from "@material-ui/icons/Edit";
 import {createStyles, makeStyles} from "@material-ui/core/styles";
 
 export interface EditableCellProps {
     initialValue: any,
     validationSchema: Yup.Schema<any>,
-    onSubmit: (value: any) => void;
+    onSubmit: (value: string) => void;
+    onChange?: (value: string) => void;
     editEnabled: boolean;
+    isEditing: boolean;
+    onCancel?: (value: string) => void
+    onEditClick: () => void
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     textBox: {
-        // overflowWrap: "anywhere",
-        // wordBreak: "break-all",
         maxWidth: "100%",
-        // position: "relative"
     },
     editButton: {
         opacity: "0.1",
-        padding: 0,/*
-        position: "absolute",
-        right: 0*/
+        padding: 0,
+        "&.Mui-focusVisible": {
+            opacity: 1
+        }
     }
 }));
 
 export const EditableCell: FunctionComponent<EditableCellProps> = (props) => {
-    let listContext = useContext(TranslationListContext);
-
-    const [editing, setEditing] = useState(false);
     const [overflow, setOverflow] = useState(false);
+    const [value, setValue] = useState(props.initialValue)
 
-    const handleEdit = () => {
-        if (props.editEnabled) {
-            //reset previous edit
-            listContext.resetEdit();
-            //change global reset edit function to this reset
-            listContext.resetEdit = () => setEditing(false);
-            //edit current translation
-            setEditing(true);
-        }
-    };
-
-    const handleCancel = () => {
-        listContext.resetEdit();
-    };
+    const onInputChange = (e) => {
+        setValue(e.target.value);
+        props.onChange(e.target.value);
+    }
 
     let ref = React.createRef<HTMLDivElement>();
 
@@ -89,9 +78,14 @@ export const EditableCell: FunctionComponent<EditableCellProps> = (props) => {
         }
     </>;
 
-    if (!editing) {
-        return <Box onClick={handleEdit}
-                    style={{cursor: props.editEnabled ? "pointer" : "initial"}} display="flex" alignItems="center" maxWidth="100%" className={classes.textBox}>
+    if (!props.isEditing) {
+        return <Box onClick={props.onEditClick}
+                    style={{cursor: props.editEnabled ? "pointer" : "initial"}}
+                    display="flex"
+                    alignItems="center"
+                    maxWidth="100%"
+                    className={classes.textBox}
+        >
             {
                 overflow ?
                     <>
@@ -111,7 +105,7 @@ export const EditableCell: FunctionComponent<EditableCellProps> = (props) => {
         <Box flexGrow={1}>
             <MicroForm onSubmit={(v: { value: any }) => props.onSubmit(v.value)} initialValues={{value: props.initialValue || ""}}
                        validationSchema={Yup.object().shape({value: props.validationSchema})}>
-                <EasyInput multiline name="value" fullWidth endAdornment={
+                <EasyInput onChange={onInputChange} multiline name="value" fullWidth endAdornment={
                     <InputAdornment position="end">
                         <IconButton
                             edge="end"
@@ -121,7 +115,7 @@ export const EditableCell: FunctionComponent<EditableCellProps> = (props) => {
                             <CheckIcon/>
                         </IconButton>
                         <IconButton
-                            onClick={handleCancel}
+                            onClick={() => props.onCancel(value)}
                             edge="end"
                             color="secondary"
                         >

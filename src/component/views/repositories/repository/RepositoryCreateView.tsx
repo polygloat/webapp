@@ -8,7 +8,7 @@ import {LanguageDTO} from '../../../../service/response.types';
 import {LINKS} from '../../../../constants/links';
 import {Redirect} from 'react-router-dom';
 import {TextField} from '../../../common/form/fields/TextField';
-import {BaseFormView} from '../../BaseFormView';
+import {BaseFormView} from '../../../layout/BaseFormView';
 import {FieldArray} from "../../../common/form/fields/FieldArray";
 import {Validation} from "../../../../constants/GlobalValidationSchema";
 import {PossibleRepositoryPage} from "../../PossibleRepositoryPage";

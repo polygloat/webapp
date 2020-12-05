@@ -6,8 +6,10 @@ import {TranslationActions} from "../../store/repository/TranslationActions";
 import {useRepository} from "../../hooks/useRepository";
 import {Loadable} from "../../store/AbstractLoadableActions";
 import {RepositoryPermissionType, TranslationsDataResponse} from "../../service/response.types";
-import {T, useTranslate} from "polygloat-react";
+import {T, useTranslate} from "@polygloat/react";
 import {FullPageLoading} from "../common/FullPageLoading";
+import {useRepositoryLanguages} from "../../hooks/useRepositoryLanguages";
+import {useLeaveEditConfirmationOtherEdit} from "./useLeaveEditConfirmation";
 
 export const TranslationListContext = React.createContext<TranslationListContextType>(null);
 
@@ -23,13 +25,17 @@ export type TranslationListContextType = {
     listLoadable: Loadable<TranslationsDataResponse>
     perPage: number,
     checkAllToggle: () => void,
-    isSourceChecked: (id: number) => boolean,
-    toggleSourceChecked: (id: number) => void,
+    isKeyChecked: (id: number) => boolean,
+    toggleKeyChecked: (id: number) => void,
     isAllChecked: () => boolean,
     isSomeChecked: () => boolean
-    checkedSources: Set<number>
+    checkedKeys: Set<number>
     showCheckBoxes: boolean
+    showKeys: boolean,
+    setShowKeys: (showKeys: boolean) => void
 }
+
+const messaging = container.resolve(messageService);
 
 export const TranslationGridContextProvider: FunctionComponent = (props) => {
 
@@ -38,15 +44,23 @@ export const TranslationGridContextProvider: FunctionComponent = (props) => {
     let listLoadable = actions.useSelector(s => s.loadables.translations);
     let selectedLanguages = actions.useSelector(s => s.selectedLanguages);
     let translationSaveLoadable = actions.useSelector(s => s.loadables.setTranslations);
+    let keySaveLoadable = actions.useSelector(s => s.loadables.editKey);
+    let deleteLoadable = actions.useSelector(s => s.loadables.delete);
+
+
+    const repositoryLanguages = useRepositoryLanguages().reduce((acc, curr) => ({...acc, [curr.abbreviation]: curr.name}), {});
 
     const t = useTranslate();
-
     const [perPage, setPerPage] = useState(20);
-
-    let messaging = container.resolve(messageService);
+    const [showKeys, setShowKeys] = useState(true);
+    const [checkedKeys, setCheckedKeys] = useState(new Set<number>());
+    const [_resetEdit, setResetEdit] = useState(() => () => {
+    });
 
     const loadData = (search?: string, limit?: number, offset?: number) => {
         setPerPage(limit || perPage);
+        const lastLoadOffset = listLoadable?.dispatchParams?.[4];
+        offset = offset !== undefined ? offset : lastLoadOffset
         actions.loadableActions.translations.dispatch(
             repositoryDTO.id, selectedLanguages.length ? selectedLanguages : null, search, limit || perPage, offset
         );
@@ -57,15 +71,6 @@ export const TranslationGridContextProvider: FunctionComponent = (props) => {
             loadData();
         }
     }, [selectedLanguages]);
-
-    const [checkedSources, setCheckedSources] = useState(new Set<number>());
-
-    //set state accepts also a function, thats why the funcion returns function - to handle the react call
-    const [_resetEdit, setResetEdit] = useState(() => () => {
-    });
-
-    let sourceSaveLoadable = actions.useSelector(s => s.loadables.editSource);
-    let deleteLoadable = actions.useSelector(s => s.loadables.delete);
 
 
     useEffect(() => {
@@ -89,15 +94,15 @@ export const TranslationGridContextProvider: FunctionComponent = (props) => {
             actions.loadableReset.setTranslations.dispatch();
         }
 
-        if (sourceSaveLoadable.error) {
-            for (const error of parseError(sourceSaveLoadable.error)) {
+        if (keySaveLoadable.error) {
+            for (const error of parseError(keySaveLoadable.error)) {
                 messaging.error(<T>{error}</T>);
             }
-            actions.loadableReset.editSource.dispatch();
+            actions.loadableReset.editKey.dispatch();
         }
 
-        if (sourceSaveLoadable.loaded) {
-            actions.loadableReset.editSource.dispatch();
+        if (keySaveLoadable.loaded) {
+            actions.loadableReset.editKey.dispatch();
             messaging.success(<T>Translation grid - Successfully edited!</T>);
             contextValue.refreshList();
         }
@@ -115,27 +120,38 @@ export const TranslationGridContextProvider: FunctionComponent = (props) => {
             contextValue.refreshList();
         }
 
-    }, [translationSaveLoadable, sourceSaveLoadable, deleteLoadable]);
+    }, [translationSaveLoadable, keySaveLoadable, deleteLoadable]);
+
+    const editLeaveConfirmation = useLeaveEditConfirmationOtherEdit()
+
+    useEffect(() => {
+        editLeaveConfirmation(() => {
+            actions.otherEditionConfirm.dispatch()
+        }, () => {
+            actions.otherEditionCancel.dispatch()
+        })
+    });
 
     if (!listLoadable.touched || (listLoadable.loading && !listLoadable.data)) {
         return <FullPageLoading/>
     }
 
-    const headerCells = [t("translation_grid_source_text"), ...listLoadable.data.params.languages].map((h, index) => <b key={index}>{h}</b>);
-
-    const isSourceChecked = (name) => checkedSources.has(name);
+    const isKeyChecked = (name) => checkedKeys.has(name);
 
     const isAllChecked = () => {
-        return listLoadable.data.data.filter(i => !isSourceChecked(i.id)).length === 0;
+        return listLoadable.data.data.filter(i => !isKeyChecked(i.id)).length === 0;
     };
 
     const isSomeChecked = () => {
-        return listLoadable.data.data.filter(i => isSourceChecked(i.id)).length > 0;
+        return listLoadable.data.data.filter(i => isKeyChecked(i.id)).length > 0;
     };
+
+    const headerCells = showKeys ? [<b>{t("translation_grid_key_text")}</b>] : [];
+    headerCells.push(...listLoadable.data.params.languages.map((abbr, index) => <b key={index}>{repositoryLanguages[abbr]}</b>));
 
     const contextValue: TranslationListContextType = {
         checkAllToggle: () => {
-            isAllChecked() ? setCheckedSources(new Set()) : setCheckedSources(new Set<number>(listLoadable.data.data.map(d => d.id)));
+            isAllChecked() ? setCheckedKeys(new Set()) : setCheckedKeys(new Set<number>(listLoadable.data.data.map(d => d.id)));
         },
         listLanguages: listLoadable.data.params.languages,
         headerCells,
@@ -151,21 +167,24 @@ export const TranslationGridContextProvider: FunctionComponent = (props) => {
         loadData,
         listLoadable,
         perPage: perPage,
-        isSourceChecked: isSourceChecked,
-        toggleSourceChecked: (id) => {
-            let copy = new Set<number>(checkedSources);
-            if (isSourceChecked(id)) {
+        isKeyChecked: isKeyChecked,
+        toggleKeyChecked: (id) => {
+            let copy = new Set<number>(checkedKeys);
+            if (isKeyChecked(id)) {
                 copy.delete(id);
             } else {
                 copy.add(id);
             }
-            setCheckedSources(copy);
+            setCheckedKeys(copy);
         },
         isAllChecked,
         isSomeChecked,
-        checkedSources,
-        showCheckBoxes: repositoryDTO.permissionType === RepositoryPermissionType.MANAGE
+        checkedKeys: checkedKeys,
+        showCheckBoxes: repositoryDTO.permissionType === RepositoryPermissionType.MANAGE,
+        showKeys,
+        setShowKeys,
     };
+
 
     return (
         <TranslationListContext.Provider value={contextValue}>

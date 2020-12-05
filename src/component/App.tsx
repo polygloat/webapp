@@ -16,6 +16,7 @@ import {ApiKeysView} from "./security/apiKeys/ApiKeysView";
 import {UserSettings} from "./views/UserSettings";
 import {RepositoriesRouter} from "./views/repositories/RepositoriesRouter";
 import {FullPageLoading} from "./common/FullPageLoading";
+import {GlobalError} from "../error/GlobalError";
 
 const LoginRouter = React.lazy(() => import(/* webpackChunkName: "login" */'./security/LoginRouter'));
 const SignUpView = React.lazy(() => import(/* webpackChunkName: "sign-up-view" */'./security/SignUpView'));
@@ -67,11 +68,12 @@ const GlobalConfirmation = () => {
 
     const onCancel = () => {
         actions.closeConfirmation.dispatch();
+        state.onCancel?.();
     };
 
     const onConfirm = () => {
         actions.closeConfirmation.dispatch();
-        state.onConfirm();
+        state.onConfirm?.();
     };
 
     useEffect(() => {
@@ -87,7 +89,7 @@ const GlobalConfirmation = () => {
 
 export class App extends React.Component {
     componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-        errorActions.globalError.dispatch(error);
+        errorActions.globalError.dispatch(error as GlobalError);
         throw error;
     }
 

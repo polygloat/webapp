@@ -25,14 +25,19 @@ export const MainMenu = ({sideMenuItems, ...props}: MainMenuProps) => {
             {!props.repositoryName && <TopBar/> ||
 
             <SideMenu onSideMenuToggle={() => actions.toggleSideMenu.dispatch()} open={open}>
-                <Box display="flex" justifyContent="center" mt={2} mb={2}>
+                <Box display="flex" justifyContent="center" mt={2} mb={2} p={1}>
                     <Box display="flex" flexDirection="column">
                         {props.repositoryName &&
-                        <Box fontWeight="bold" display="flex" fontSize={open ? 20 : 25} mb={open ? 0 : 2} justifyContent={!open && "center" || "initial"}>
+                        <Box fontWeight="bold"
+                             display="flex"
+                             fontSize={open ? 20 : 25}
+                             mb={open ? 0 : 2}
+                             whiteSpace="normal"
+                             justifyContent={!open && "center" || "initial"}>
                             {open && props.repositoryName || props.repositoryName.substr(0, 1)}
                         </Box>}
 
-                        <Box>
+                        <Box display="flex" justifyContent="center">
                             <UserMenu variant={open ? "expanded" : "small"}/>
                         </Box>
                     </Box>

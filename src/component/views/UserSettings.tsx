@@ -2,7 +2,7 @@ import {default as React, FunctionComponent, useEffect} from 'react';
 import {container} from 'tsyringe';
 import {TextField} from '../common/form/fields/TextField';
 import {Validation} from "../../constants/GlobalValidationSchema";
-import {BaseFormView} from "../views/BaseFormView";
+import {BaseFormView} from "../layout/BaseFormView";
 import {SetPasswordFields} from "../security/SetPasswordFields";
 import {UserActions} from "../../store/global/userActions";
 import {UserUpdateDTO} from "../../service/request.types";
@@ -11,7 +11,7 @@ import {AppState} from "../../store";
 import {RedirectionActions} from "../../store/global/redirectionActions";
 import {useHistory} from 'react-router-dom';
 import {PossibleRepositoryPage} from "./PossibleRepositoryPage";
-import {T} from "polygloat-react";
+import {T} from "@polygloat/react";
 
 const actions = container.resolve(UserActions);
 const userActions = container.resolve(UserActions);

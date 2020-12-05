@@ -7,7 +7,7 @@ import {GlobalError} from "../error/GlobalError";
 import {messageService} from "./messageService";
 import * as Sentry from '@sentry/browser';
 import React from "react";
-import {T} from "polygloat-react";
+import {T} from "@polygloat/react";
 
 const errorActions = container.resolve(ErrorActions);
 const redirectionActions = container.resolve(RedirectionActions);
@@ -59,7 +59,7 @@ export class ApiHttpService {
                     redirectionActions.redirect.dispatch(LINKS.LOGIN.build());
                 }
                 if (r.status >= 500) {
-                    errorActions.globalError.dispatch(new Error('Server responded with error status.'));
+                    errorActions.globalError.dispatch(new GlobalError('Server responded with error status.'));
                     throw new Error('Error status code from server');
                 }
                 if (r.status == 403) {
@@ -81,6 +81,7 @@ export class ApiHttpService {
                     resolve(r);
                 }
             }).catch((e) => {
+                console.error(e);
                 errorActions.globalError.dispatch(new GlobalError("Error while loading resource", input.toString(), e));
             });
         });

@@ -17,7 +17,8 @@ import ErrorBoundary from "./component/ErrorBoundary";
 import RubikTTf from './fonts/Rubik/Rubik-Regular.woff2';
 import {blue, red} from "@material-ui/core/colors";
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
-import {PolygloatProvider} from "polygloat-react";
+import {PolygloatProvider} from "@polygloat/react";
+import {UI} from "@polygloat/ui";
 import {App} from "./component/App";
 import {FullPageLoading} from "./component/common/FullPageLoading";
 import './yupLocalization';
@@ -76,14 +77,12 @@ const theme = createMuiTheme({
     },
 });
 
-/* @ts-ignore */
-console.log({...(global.polygloatDevProps || {})});
-
 ReactDOM.render(
     <React.Suspense fallback={<FullPageLoading/>}>
         <PolygloatProvider
             apiUrl={environment.polygloatApiUrl}
             apiKey={environment.polygloatApiKey}
+            ui={environment.polygloatWithUI === "true" ? UI : undefined}
             filesUrlPrefix="/i18n/"
             loadingFallback={<FullPageLoading/>}
         >

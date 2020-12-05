@@ -1,6 +1,6 @@
 import {default as React, FunctionComponent, useEffect} from 'react';
 import {DashboardPage} from '../layout/DashboardPage';
-import {BaseView} from '../views/BaseView';
+import {BaseView} from '../layout/BaseView';
 import {Button} from '@material-ui/core';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../store';

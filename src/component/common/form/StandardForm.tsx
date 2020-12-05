@@ -4,7 +4,7 @@ import {Box, Button} from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {ObjectSchema} from 'yup';
 import {useHistory} from 'react-router-dom';
-import {T} from "polygloat-react";
+import {T} from "@polygloat/react";
 
 interface FormProps<T = { [key: string]: any }> {
     initialValues: T;
@@ -33,12 +33,14 @@ export const StandardForm: FunctionComponent<FormProps> = ({initialValues, valid
                         <Box mt={2} display="flex" justifyContent="flex-end">
                             <React.Fragment>
                                 {props.customActions && <Box flexGrow={1}>{props.customActions}</Box>}
-                                <Box>
-                                    <Button color="primary" disabled={props.loading || !formikProps.isValid} type="submit">
-                                        {props.submitButtonInner || <T>global_form_save</T>}
-                                    </Button>
+                                <Box display="flex" alignItems="flex-end" mb={2}>
                                     <Button disabled={props.loading}
                                             onClick={onCancel}><T>global_form_cancel</T></Button>
+                                    <Box ml={1}>
+                                        <Button color="primary" variant="contained" disabled={props.loading || !formikProps.isValid} type="submit">
+                                            {props.submitButtonInner || <T>global_form_save</T>}
+                                        </Button>
+                                    </Box>
                                 </Box>
                             </React.Fragment>
                         </Box>))}

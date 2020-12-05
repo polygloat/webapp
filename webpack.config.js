@@ -1,16 +1,16 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require("webpack");
-
+const dotenv = require('dotenv');
 
 module.exports = env => {
     const isDevelopment = env.mode === "development";
     const mode = env.mode || 'production';
 
-    const dotenv = require('dotenv').config({path: ".env." + (isDevelopment ? "dev" : "prod")});
-    env = {...dotenv.parsed, ...env};
+    const dotenvMaster = dotenv.config({path: ".env"});
+    const dotenvProfile = dotenv.config({path: ".env." + (isDevelopment ? "dev" : "prod")});
+    env = {...dotenvProfile.parsed, ...dotenvMaster.parsed, ...env, ...process.env};
 
     return {
         entry: {
@@ -36,7 +36,7 @@ module.exports = env => {
                 },
                 {
                     test: /\.tsx?$/,
-                    use: [isDevelopment && "ts-loader" || "babel-loader"],
+                    use: ["ts-loader"],
                     exclude: [/node_modules/, /lib/],
                 }, {
                     test: /\.svg$/,
@@ -94,14 +94,16 @@ module.exports = env => {
                     sentryDsn: env.sentryDsn,
                     apiUrl: env.apiUrl,
                     polygloatApiKey: env.polygloatApiKey,
-                    polygloatApiUrl: env.polygloatApiUrl
+                    polygloatApiUrl: env.polygloatApiUrl,
+                    polygloatWithUI: env.polygloatWithUI
                 })
             })
-            //new BundleAnalyzerPlugin()
         ],
         devServer: {
+            host: env.host || "localhost",
             historyApiFallback: true,
-            overlay: true
+            overlay: true,
+            port: env.port || undefined
         }
     }
 };

@@ -6,6 +6,7 @@ interface MicroFormProps<T = { [key: string]: any }> {
     initialValues: T;
     onSubmit: (values: T, formikBag: FormikBag<any, any>) => void | Promise<any>;
     validationSchema?: ObjectSchema;
+    onChange?: (value: any) => any
 }
 
 export const MicroForm: FunctionComponent<MicroFormProps> = ({initialValues, validationSchema, ...props}) => {

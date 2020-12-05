@@ -11,8 +11,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import {SettingsIconButton} from '../../../common/buttons/SettingsIconButton';
 import {Link, useRouteMatch} from 'react-router-dom';
 import {LanguageActions} from '../../../../store/languages/LanguageActions';
-import {BaseView} from '../../BaseView';
-import {T} from "polygloat-react";
+import {BaseView} from '../../../layout/BaseView';
+import {T} from "@polygloat/react";
 
 const actions = container.resolve(LanguageActions);
 
@@ -29,7 +29,7 @@ export const LanguageListView = () => {
     return (
         <BaseView title={<T>languages_title</T>} loading={loadable.loading || !loadable.touched} lg={5} md={7}>
             {() => (
-                <>
+                <Box ml={-2}>
                     <List>
                         {loadable.data.map(l => (
                             <ListItem key={l.id}>
@@ -52,7 +52,7 @@ export const LanguageListView = () => {
                         <Box display="flex" flexDirection="column" alignItems="flex-end" pr={2} mt={5}>
                             <FabAddButtonLink to={LINKS.REPOSITORY_LANGUAGES_CREATE.build({[PARAMS.REPOSITORY_ID]: repositoryId})}/>
                         </Box>
-                    </>
+                    </Box>
                 )}
             </BaseView>
     );
