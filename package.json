@@ -20,7 +20,7 @@
   "license": "BSD",
   "dependencies": {
     "@polygloat/react": "^1.0.0-alpha.3",
-    "@polygloat/ui": "^1.0.0-alpha.0",
+    "@polygloat/ui": "^1.0.0-alpha.2",
     "@sentry/browser": "^5.27.6",
     "@types/yup": "^0.26.33",
     "clsx": "^1.1.1",
