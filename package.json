@@ -22,7 +22,7 @@
     "@polygloat/react": "^1.0.0-alpha.3",
     "@polygloat/ui": "^1.0.0-alpha.2",
     "@sentry/browser": "^5.27.6",
-    "@types/yup": "^0.26.33",
+    "@types/yup": "^0.29.10",
     "clsx": "^1.1.1",
     "cypress-dotenv": "^1.2.2",
     "formik": "^2.1.6",
