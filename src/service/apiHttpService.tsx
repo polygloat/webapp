@@ -18,7 +18,7 @@ let timer;
 let requests: { [address: string]: number } = {};
 const detectLoop = (url) => {
     requests[url] = 1 + (requests[url] || 0);
-    if (requests[url] > 10) {
+    if (requests[url] > 20) {
         return true;
     }
     timer = setTimeout(() => {
@@ -107,6 +107,13 @@ export class ApiHttpService {
             headers: {
                 'Content-Type': 'application/json'
             },
+        }));
+    }
+
+    async postMultipart<T>(url: string, data: FormData): Promise<T> {
+        return ApiHttpService.getResObject(await this.fetch(url, {
+            method: 'POST',
+            body: data
         }));
     }
 

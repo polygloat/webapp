@@ -8,6 +8,8 @@ import {TranslationCell} from "./TranslationCell";
 import {grey} from "@material-ui/core/colors";
 import {TranslationListContext} from "./TtranslationsGridContextProvider";
 import {createStyles, makeStyles} from "@material-ui/core/styles";
+import {KeyScreenshots} from "./Screenshots/KeySreenshots";
+
 
 export interface TranslationProps {
     data: KeyTranslationsDTO
@@ -20,7 +22,7 @@ export type RowContextType = {
 
 export const RowContext = React.createContext<RowContextType>({data: null, lastRendered: 0});
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
     moreButton: {
         opacity: "0.8",
         padding: 0,
@@ -64,6 +66,7 @@ export const TranslationsRow: FunctionComponent<TranslationProps> = (props) => {
                         </TableCell>
                     )}
                 </Box>
+                <KeyScreenshots data={props.data}/>
                 {/*<Box display="flex" alignItems="center">*/}
                 {/*    <IconButton className={classes.moreButton}>*/}
                 {/*        <Tooltip title="Open detail">*/}

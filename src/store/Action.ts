@@ -28,7 +28,7 @@ export class Action<PayloadType, StateType, DispatchParams extends any[]> extend
     };
 
     constructor(public type: string,
-                public payloadProvider?: (...params: any[]) => PayloadType,
+                public payloadProvider?: (...params: DispatchParams) => PayloadType,
                 public stateModifier?: StateModifier<StateType, PayloadType>,
     ) {
         super(type, payloadProvider);
@@ -39,7 +39,9 @@ export class Action<PayloadType, StateType, DispatchParams extends any[]> extend
     }
 }
 
-export class PromiseAction<PayloadType, ErrorType, StateType> extends AbstractAction<Promise<PayloadType>, StateType> {
+export class PromiseAction<PayloadType, ErrorType, StateType, DispatchParams extends any[]>
+    extends AbstractAction<Promise<PayloadType>, StateType, DispatchParams> {
+
     public reducePending: StateModifier<StateType, any>;
 
     get fulfilledType() {
@@ -57,17 +59,17 @@ export class PromiseAction<PayloadType, ErrorType, StateType> extends AbstractAc
     public reduceRejected: StateModifier<StateType, any>;
     public reduceFulfilled: StateModifier<StateType, PayloadType>;
     build = {
-        onPending: (callback: StateModifier<StateType, any>): PromiseAction<PayloadType, ErrorType, StateType> => {
+        onPending: (callback: StateModifier<StateType, any>): PromiseAction<PayloadType, ErrorType, StateType, DispatchParams> => {
             this.reducePending = callback;
             return this;
         },
 
-        onRejected: (callback: StateModifier<StateType, ErrorType>): PromiseAction<PayloadType, ErrorType, StateType> => {
+        onRejected: (callback: StateModifier<StateType, ErrorType>): PromiseAction<PayloadType, ErrorType, StateType, DispatchParams> => {
             this.reduceRejected = callback;
             return this;
         },
 
-        onFullFilled: (callback: StateModifier<StateType, PayloadType>): PromiseAction<PayloadType, ErrorType, StateType> => {
+        onFullFilled: (callback: StateModifier<StateType, PayloadType>): PromiseAction<PayloadType, ErrorType, StateType, DispatchParams> => {
             this.reduceFulfilled = callback;
             return this;
         }

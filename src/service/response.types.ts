@@ -39,6 +39,8 @@ export interface RemoteConfigurationDTO {
             clientId: string;
         }
     }
+    screenshotsUrl: string
+    maxUploadFileSize: number
 }
 
 export interface TokenDTO {
@@ -96,4 +98,10 @@ export interface ApiKeyDTO {
 export interface PermissionEditDTO {
     "permissionId": number,
     "type": RepositoryPermissionType
+}
+
+export interface ScreenshotDTO {
+    "id": 0,
+    "filename": string,
+    "createdAt": string
 }

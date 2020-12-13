@@ -67,13 +67,13 @@ const GlobalConfirmation = () => {
     let actions = container.resolve(GlobalActions);
 
     const onCancel = () => {
-        actions.closeConfirmation.dispatch();
         state.onCancel?.();
+        actions.closeConfirmation.dispatch();
     };
 
     const onConfirm = () => {
-        actions.closeConfirmation.dispatch();
         state.onConfirm?.();
+        actions.closeConfirmation.dispatch();
     };
 
     useEffect(() => {
