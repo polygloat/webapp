@@ -1,5 +1,5 @@
 import {default as React, FunctionComponent, useContext} from "react";
-import {Box, Button, IconButton, Slide, Tooltip, useTheme, FormGroup, FormControlLabel, Switch} from "@material-ui/core";
+import {Box, Button, FormControlLabel, FormGroup, IconButton, Slide, Switch, Tooltip} from "@material-ui/core";
 import {confirmation} from "../../hooks/confirmation";
 import DeleteIcon from "@material-ui/icons/Delete";
 import {LanguagesMenu} from "../common/form/LanguagesMenu";
@@ -12,11 +12,14 @@ import {useRepository} from "../../hooks/useRepository";
 import {container} from "tsyringe";
 import {TranslationActions} from "../../store/repository/TranslationActions";
 import {T, useTranslate} from "@polygloat/react";
+import {useRepositoryPermissions} from "../../hooks/useRepositoryPermissions";
+import {RepositoryPermissionType} from "../../service/response.types";
 
 export const MenuBar: FunctionComponent = () => {
     let repositoryDTO = useRepository();
     const actions = container.resolve(TranslationActions);
     const listContext = useContext(TranslationListContext);
+    const repositoryPermissions = useRepositoryPermissions();
 
     const t = useTranslate();
 
@@ -64,6 +67,7 @@ export const MenuBar: FunctionComponent = () => {
                         </FormGroup>
                     </Box>
                 </Box>
+                {repositoryPermissions.satisfiesPermission(RepositoryPermissionType.EDIT) &&
                 <Box display="flex" alignItems="flex-end">
                     <Button component={Link} variant="outlined" color="primary" size={"small"}
                             to={LINKS.REPOSITORY_TRANSLATIONS_ADD.build({[PARAMS.REPOSITORY_ID]: repositoryDTO.id})}
@@ -71,7 +75,7 @@ export const MenuBar: FunctionComponent = () => {
                     >
                         <T>translation_add</T>
                     </Button>
-                </Box>
+                </Box>}
             </Box>
         </Box>
     )

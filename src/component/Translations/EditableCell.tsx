@@ -79,7 +79,7 @@ export const EditableCell: FunctionComponent<EditableCellProps> = (props) => {
     </>;
 
     if (!props.isEditing) {
-        return <Box onClick={props.onEditClick}
+        return <Box onClick={() => {props.editEnabled && props.onEditClick()}}
                     style={{cursor: props.editEnabled ? "pointer" : "initial"}}
                     display="flex"
                     alignItems="center"
