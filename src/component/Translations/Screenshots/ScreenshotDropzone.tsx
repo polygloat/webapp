@@ -82,7 +82,7 @@ export const ScreenshotDropzone: FunctionComponent<ScreenshotDropzoneProps> = ({
 
     return (
         <>
-            <Box position="relative" display="flex" {...dropZoneAllowedProps} overflow="visible">
+            <Box position="relative" display="flex" {...dropZoneAllowedProps} overflow="visible" data-cy="dropzone">
                 <Box zIndex={2} position="absolute" width="100%" height="100%"
                      className={clsx({
                          [classes.dropZoneValidation]: true,
