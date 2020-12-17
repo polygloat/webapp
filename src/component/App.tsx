@@ -16,6 +16,7 @@ import {ApiKeysView} from "./security/apiKeys/ApiKeysView";
 import {UserSettings} from "./views/UserSettings";
 import {RepositoriesRouter} from "./views/repositories/RepositoriesRouter";
 import {FullPageLoading} from "./common/FullPageLoading";
+import * as Sentry from '@sentry/browser';
 import {GlobalError} from "../error/GlobalError";
 
 const LoginRouter = React.lazy(() => import(/* webpackChunkName: "login" */'./security/LoginRouter'));
@@ -48,6 +49,13 @@ const Redirection = () => {
 const MandatoryDataProvider = (props) => {
     let config = useConfig();
     let userData = useUser();
+
+    useEffect(() => {
+        if (config?.clientSentryDsn) {
+            Sentry.init({dsn: config.clientSentryDsn});
+            console.info("Using Sentry!");
+        }
+    }, [config?.clientSentryDsn])
 
     let allowPrivate = useSelector((state: AppState) => state.global.security.allowPrivate);
 
