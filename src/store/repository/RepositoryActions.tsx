@@ -23,18 +23,18 @@ export class RepositoryActions extends AbstractLoadableActions<RepositoriesState
     public loadRepositories = this.createPromiseAction<RepositoryDTO[], any>('LOAD_ALL', this.service.getRepositories)
         .build.onFullFilled((state, action) => {
             return {...state, repositories: action.payload, repositoriesLoading: false};
-        }).build.onPending((state, action) => {
+        }).build.onPending((state) => {
             return {...state, repositoriesLoading: true};
         });
 
 
     loadableDefinitions = {
-        editRepository: this.createLoadableDefinition<null>((id, values) => this.service.editRepository(id, values), null,
+        editRepository: this.createLoadableDefinition((id, values) => this.service.editRepository(id, values), null,
             <T>repository_successfully_edited_message</T>, LINKS.REPOSITORIES),
         createRepository: this.createLoadableDefinition((values) => this.service.createRepository(values),
             null, <T>repository_created_message</T>, LINKS.REPOSITORIES),
         repository: this.createLoadableDefinition(this.service.loadRepository),
-        deleteRepository: this.createLoadableDefinition(this.service.deleteRepository, (state, action): RepositoriesState =>
+        deleteRepository: this.createLoadableDefinition(this.service.deleteRepository, (state): RepositoriesState =>
             (
                 {...state, loadables: {...state.loadables, repository: {...createLoadable()} as Loadable<RepositoryDTO>}}
             ), <T>repository_deleted_message</T>)

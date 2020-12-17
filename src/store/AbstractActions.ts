@@ -26,12 +26,12 @@ export abstract class AbstractActions<StateType> {
         return action;
     }
 
-    createPromiseAction<PayloadType, ErrorType = ErrorResponseDTO>(type: string,
-                                                                   payloadProvider: (...params: any[]) => Promise<PayloadType>,
+    createPromiseAction<PayloadType, ErrorType = ErrorResponseDTO, DispatchParams extends any[] = []>(type: string,
+                                                                   payloadProvider: (...params: DispatchParams) => Promise<PayloadType>,
                                                                    successMessage?: ReactNode,
                                                                    redirectAfter?: Link):
-        PromiseAction<PayloadType, ErrorType, StateType> {
-        let promiseAction = new PromiseAction<PayloadType, ErrorType, StateType>(`${this.prefix}_${type}`,
+        PromiseAction<PayloadType, ErrorType, StateType, DispatchParams> {
+        let promiseAction = new PromiseAction<PayloadType, ErrorType, StateType, DispatchParams>(`${this.prefix}_${type}`,
             payloadProvider,
             {
                 successMessage,

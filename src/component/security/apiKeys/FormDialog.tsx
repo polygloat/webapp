@@ -16,7 +16,7 @@ import {FullPageLoading} from "../../common/FullPageLoading";
 
 interface Value {
     scopes: string[],
-    repositoryId?: number
+    repositoryId: number
 }
 
 interface Props {

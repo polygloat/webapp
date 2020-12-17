@@ -6,5 +6,5 @@ services:
     ports:
       - "${TEST_POLYGLOAT_API_PORT}:8080"
     environment:
-      - app.populate=true
-      - app.allowInternal=true
+      - polygloat.internal.controller-enabled=true
+      - polygloat.internal.populate=true

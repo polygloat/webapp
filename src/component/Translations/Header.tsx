@@ -5,7 +5,7 @@ import {TableCell} from "./TableCell";
 import {RowContext} from "./TranslationsRow";
 import {TranslationListContext} from "./TtranslationsGridContextProvider";
 
-export const Header: FunctionComponent = (props) => {
+export const Header: FunctionComponent = () => {
 
     const listContext = useContext(TranslationListContext);
 
@@ -25,6 +25,7 @@ export const Header: FunctionComponent = (props) => {
                         </TableCell>
                     )}
                 </Box>
+                <Box width={"24px"}/>
                 {/*The size of advanced view icon in rows*/}
                 {/*<Box width={"24px"}>*/}
                 {/*</Box>*/}

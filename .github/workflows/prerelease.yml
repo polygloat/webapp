@@ -28,7 +28,9 @@ jobs:
           until docker logs --since 5m polygloat_webapp_test | grep -m 1 "started on port(s): 8080"; do : ;done
 
       - name: Run the tests
-        run: npm run serve & npm run cy:run
+        run: |
+          export CYPRESS_DEFAULT_PASSWORD=$(docker exec polygloat_webapp_test cat /data/initial.pwd)
+          npm run serve & npm run cy:run
 
       - name: Set git globals
         run: |

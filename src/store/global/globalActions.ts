@@ -39,16 +39,16 @@ export class GlobalActions extends AbstractLoadableActions<GlobalState> {
 
 
     logout = this.createAction('LOGOUT', () => this.securityService.logout()).build.on(
-        (state, action) => (
+        (state) => (
             {...state, security: <SecurityDTO>{...state.security, jwtToken: null, allowPrivate: false}}
         ));
     login = this.buildLoginAction('LOGIN', v => this.securityService.login(v));
 
-    resetPasswordValidate = this.createPromiseAction<never, ErrorResponseDTO>('RESET_PASSWORD_VALIDATE',
+    resetPasswordValidate = this.createPromiseAction<never, ErrorResponseDTO, Parameters<securityService['resetPasswordValidate']>>('RESET_PASSWORD_VALIDATE',
         this.securityService.resetPasswordValidate)
-        .build.onPending((state, action) => {
+        .build.onPending((state) => {
             return {...state, passwordResetSetLoading: true};
-        }).build.onFullFilled((state, action) => {
+        }).build.onFullFilled((state) => {
             return {...state, passwordResetSetLoading: false, passwordResetSetValidated: true};
         }).build.onRejected((state, action) => {
             return <GlobalState>{
@@ -58,11 +58,11 @@ export class GlobalActions extends AbstractLoadableActions<GlobalState> {
                 passwordResetSetLoading: false
             };
         });
-    resetPasswordSet = this.createPromiseAction<void, ErrorResponseDTO>('RESET_PASSWORD_SET',
+    resetPasswordSet = this.createPromiseAction<void, ErrorResponseDTO, Parameters<securityService['resetPasswordSet']>>('RESET_PASSWORD_SET',
         this.securityService.resetPasswordSet)
-        .build.onPending((state, action) => {
+        .build.onPending((state) => {
             return <GlobalState>{...state, passwordResetSetLoading: true, passwordResetSetSucceed: false};
-        }).build.onFullFilled((state, action) => {
+        }).build.onFullFilled((state) => {
             return <GlobalState>{...state, passwordResetSetSucceed: true};
         }).build.onRejected((state, action) => {
             return <GlobalState>{
@@ -93,10 +93,13 @@ export class GlobalActions extends AbstractLoadableActions<GlobalState> {
             }));
 
     closeConfirmation = this.createAction('CLOSE_CONFIRMATION', null)
-        .build.on((state, action) =>
+        .build.on((state) =>
             (<GlobalState>{
                 ...state,
-                confirmationDialog: null
+                confirmationDialog: {
+                    ...state.confirmationDialog,
+                    open: false
+                }
             }));
 
     readonly loadableDefinitions = {
@@ -125,9 +128,9 @@ export class GlobalActions extends AbstractLoadableActions<GlobalState> {
         return 'GLOBAL';
     }
 
-    private buildLoginAction(name: string, payloadProvider: (...params) => Promise<TokenDTO>) {
-        return this.createPromiseAction<TokenDTO, ErrorResponseDTO>(name, payloadProvider)
-            .build.onPending((state, action) => (
+    private buildLoginAction<DispatchParams extends any[]>(name: string, payloadProvider: (...params: DispatchParams) => Promise<TokenDTO>) {
+        return this.createPromiseAction<TokenDTO, ErrorResponseDTO, DispatchParams>(name, payloadProvider)
+            .build.onPending((state) => (
                 {...state, authLoading: true}
             ))
             .build.onFullFilled((state, action) => (

@@ -5,17 +5,15 @@ import {Validation} from "../../constants/GlobalValidationSchema";
 import {BaseFormView} from "../layout/BaseFormView";
 import {SetPasswordFields} from "../security/SetPasswordFields";
 import {UserActions} from "../../store/global/userActions";
-import {UserUpdateDTO} from "../../service/request.types";
+import {UserUpdateDTO} from "../../service/response.types";
 import {useSelector} from "react-redux";
 import {AppState} from "../../store";
-import {RedirectionActions} from "../../store/global/redirectionActions";
 import {useHistory} from 'react-router-dom';
 import {PossibleRepositoryPage} from "./PossibleRepositoryPage";
 import {T} from "@polygloat/react";
 
 const actions = container.resolve(UserActions);
 const userActions = container.resolve(UserActions);
-const redirectActions = container.resolve(RedirectionActions);
 
 export const UserSettings: FunctionComponent = () => {
 
@@ -41,7 +39,7 @@ export const UserSettings: FunctionComponent = () => {
                               if (!v.password) {
                                   delete v.password;
                               }
-                              actions.loadableActions.updateUser.dispatch(v as UserUpdateDTO);
+                              actions.loadableActions.updateUser.dispatch(v);
                           }}>
                 <TextField name="name" label={<T>User settings - Full name</T>}/>
                 <TextField name="email" label={<T>User settings - E-mail</T>}/>
