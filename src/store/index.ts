@@ -19,6 +19,7 @@ import {TranslationActions} from "./repository/TranslationActions";
 import {UserApiKeysActions} from "./api_keys/UserApiKeysActions";
 import {ImportExportActions} from "./repository/ImportExportActions";
 import {UserActions} from "./global/userActions";
+import {ScreenshotActions} from "./repository/ScreenshotActions";
 
 const implicitReducer = container.resolve(ir);
 const repositoryActionsIns = container.resolve(RepositoryActions);
@@ -40,7 +41,8 @@ const appReducer = (appState, action) => combineReducers({
     repositoryPermission: implicitReducer.create(container.resolve(RepositoryPermissionActions)),
     importExport: implicitReducer.create(container.resolve(ImportExportActions)),
     userApiKey: implicitReducer.create(container.resolve(UserApiKeysActions)),
-    user: implicitReducer.create(container.resolve(UserActions))
+    user: implicitReducer.create(container.resolve(UserActions)),
+    screenshots:  implicitReducer.create(container.resolve(ScreenshotActions)),
 })(appState, action);
 
 const rootReducer = (state, action): ReturnType<typeof appReducer> => {
