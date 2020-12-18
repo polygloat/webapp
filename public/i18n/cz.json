@@ -92,9 +92,26 @@
   "api_key_successfully_edited" : "Api klíč úspěšně upraven!",
   "api_key_successfully_deleted" : "API klíč úspěšně odstraněn!",
   "translations_key_delete_confirmation_text" : "Skutečně chcete smazat všech {{count}} klíčů a jejich překladů?",
-  "translations_leave_save_confirmation_message" : "",
-  "translations_leave_save_confirmation" : "",
-  "back_to_editing" : "",
-  "discard_changes" : "",
-  "username_already_exists" : "Uživatelské jméno už existuje."
+  "username_already_exists" : "Uživatelské jméno už existuje.",
+  "discard_changes" : "Zahodit změny",
+  "translations_leave_save_confirmation_message" : "\nChcete zahodit změnu z \"{{initialValue}}\" na \"{{newValue}}\"?",
+  "back_to_editing" : "Zpět k editaci",
+  "translations_leave_save_confirmation" : "Zahodit změny?",
+  "translation_grid_screenshots_tooltip" : "Snímky obrazovky",
+  "translations_screenshots_popover_title" : "Snímky obrazovky",
+  "screenshot_delete_title" : "Odstranit snímek obrazovky",
+  "screenshot_delete_message" : "Skutečně chcete odstranit sníme obrazovky?",
+  "translations" : {
+    "screenshots" : {
+      "delete_tooltip" : "Smazat",
+      "some_screenshots_not_uploaded" : "Některé snímky obrazovky nebyly uloženy kvůli neznámé chybě. ",
+      "validation" : {
+        "file_too_big" : "Soubor {{filename}} je příliš velký.",
+        "unsupported_format" : "Typ souboru {{filename}} není podporován.",
+        "too_many_files" : "Příliš mnoho souborů."
+      }
+    }
+  },
+  "no_screenshots_yet" : "Zatím nebyly přidány žádné snímky obrazovky. Nějaké přidejte přetažením nebo kliknutím na plus.",
+  "operation_not_permitted_error" : "Nemáte dostatečná oprávnění pro tuto operaci."
 }
