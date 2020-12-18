@@ -30,6 +30,7 @@ export type RepositoryDTO = {
 }
 
 export interface RemoteConfigurationDTO {
+    clientSentryDsn: string;
     authentication: boolean;
     passwordResettable: boolean;
     allowRegistrations: boolean;

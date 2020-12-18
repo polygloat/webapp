@@ -11,8 +11,6 @@ import {container} from 'tsyringe';
 
 import {dispatchService} from './service/dispatchService';
 
-import * as Sentry from '@sentry/browser';
-
 import ErrorBoundary from "./component/ErrorBoundary";
 import RubikTTf from './fonts/Rubik/Rubik-Regular.woff2';
 import {blue, red} from "@material-ui/core/colors";
@@ -27,11 +25,6 @@ const store = configureStore();
 
 const SnackbarProvider = React.lazy(() => import(/* webpackChunkName: "notistack" */ 'notistack')
     .then(module => ({"default": module.SnackbarProvider})));
-
-if (environment.sentryDsn) {
-    Sentry.init({dsn: environment.sentryDsn});
-    console.info("Using Sentry!");
-}
 
 container.resolve(dispatchService).store = store;
 
