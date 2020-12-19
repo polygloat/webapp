@@ -26,14 +26,18 @@ export interface EditableCellProps {
 const useStyles = makeStyles((theme: Theme) => createStyles({
     textBox: {
         maxWidth: "100%",
-    },
-    editButton: {
-        opacity: "0.1",
-        padding: 0,
-        "&.Mui-focusVisible": {
-            opacity: 1
+        '& .hiding-click-icon': {
+            opacity: "0.1",
+            padding: 0,
+            transition: "opacity 0.2s",
+            "&.Mui-focusVisible": {
+                opacity: 1
+            }
+        },
+        '&:hover .hiding-click-icon': {
+            opacity: 0.5
         }
-    }
+    },
 }));
 
 export const EditableCell: FunctionComponent<EditableCellProps> = (props) => {
@@ -72,19 +76,23 @@ export const EditableCell: FunctionComponent<EditableCellProps> = (props) => {
     const EditIconButton = () => <>
         {
             props.editEnabled &&
-            <IconButton aria-label="edit" color="default" className={classes.editButton} size="small">
+            <IconButton aria-label="edit" color="default" className={"hiding-click-icon"} size="small">
                 <EditIcon fontSize="small"/>
             </IconButton>
         }
     </>;
 
     if (!props.isEditing) {
-        return <Box onClick={props.onEditClick}
-                    style={{cursor: props.editEnabled ? "pointer" : "initial"}}
-                    display="flex"
-                    alignItems="center"
-                    maxWidth="100%"
-                    className={classes.textBox}
+        return <Box
+            onClick={
+                () => {
+                    props.editEnabled && props.onEditClick()
+                }}
+            style={{cursor: props.editEnabled ? "pointer" : "initial"}}
+            display="flex"
+            alignItems="center"
+            maxWidth="100%"
+            className={classes.textBox}
         >
             {
                 overflow ?

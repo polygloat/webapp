@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {FunctionComponent, useContext} from 'react';
 import {KeyTranslationsDTO} from "../../service/response.types";
-import {Box, Checkbox, Theme} from "@material-ui/core";
+import {Box, Checkbox} from "@material-ui/core";
 import {TableCell} from "./TableCell";
 import {KeyCell} from "./KeyCell";
 import {TranslationCell} from "./TranslationCell";
@@ -67,13 +67,6 @@ export const TranslationsRow: FunctionComponent<TranslationProps> = (props) => {
                     )}
                 </Box>
                 <KeyScreenshots data={props.data}/>
-                {/*<Box display="flex" alignItems="center">*/}
-                {/*    <IconButton className={classes.moreButton}>*/}
-                {/*        <Tooltip title="Open detail">*/}
-                {/*            <OpenInNewIcon/>*/}
-                {/*        </Tooltip>*/}
-                {/*    </IconButton>*/}
-                {/*</Box>*/}
             </RowContext.Provider>
         </Box>
     )
