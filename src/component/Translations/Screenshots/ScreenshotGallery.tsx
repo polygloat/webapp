@@ -63,7 +63,7 @@ export const ScreenshotGallery: FunctionComponent<ScreenshotGalleryProps> = (pro
         const repository = useRepository();
 
         const addBox = repositoryPermissions.satisfiesPermission(RepositoryPermissionType.TRANSLATE) && (
-            <Box key="add" className={`${classes.addBox}`}
+            <Box key="add" className={`${classes.addBox}`} data-cy="add-box"
                  onClick={() => fileRef.current.dispatchEvent(new MouseEvent("click"))}>
                 <AddIcon className={classes.addIcon}/>
             </Box>

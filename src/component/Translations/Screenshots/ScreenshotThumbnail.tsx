@@ -98,7 +98,8 @@ export const ScreenshotThumbnail: FunctionComponent<ScreenshotThumbnailProps> = 
 
     return (
         <>
-            <Box className={classes.screenshotBox} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+            <Box className={classes.screenshotBox} onMouseOver={onMouseOver} onMouseOut={onMouseOut}
+                 data-cy="screenshot-box">
                 {repositoryPermissions.satisfiesPermission(RepositoryPermissionType.TRANSLATE) &&
                 <Tooltip title={<T noWrap>translations.screenshots.delete_tooltip</T>}>
                     <IconButton className={clsx(classes.deleteIconButton, {hover})} onClick={onDeleteClick}>
