@@ -50,7 +50,7 @@ export const KeyScreenshots: FunctionComponent<ScreenshotsProps> = (props) => {
     return (
         <>
             <Box display="flex" alignItems="center">
-                <IconButton className={classes.cameraButton} onClick={handleClick}>
+                <IconButton className={classes.cameraButton} data-cy="camera-button" onClick={handleClick}>
                     <Tooltip title={<T noWrap>translation_grid_screenshots_tooltip</T>}>
                         <PhotoCameraIcon/>
                     </Tooltip>

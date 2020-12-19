@@ -6,5 +6,6 @@ services:
     ports:
       - "${TEST_POLYGLOAT_API_PORT}:8080"
     environment:
-      - polygloat.internal.controller-enabled=true
       - polygloat.internal.populate=true
+      - polygloat.internal.controllerEnabled=true
+      - "polygloat.screenshotsUrl=http://localhost:8201/screenshots"
