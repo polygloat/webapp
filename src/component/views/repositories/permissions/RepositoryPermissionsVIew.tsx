@@ -38,7 +38,7 @@ export const RepositoryPermissionsView: FunctionComponent = () => {
         }
     }, [state.loadables.list.loaded]);
 
-    let confirmation = (options: ConfirmationDialogProps) => confirmation({title: 'Revoke access', ...options});
+    let confirmationMessage = (options: ConfirmationDialogProps) => confirmation({title: 'Revoke access', ...options});
 
     const userData = useUser();
 
@@ -78,7 +78,7 @@ export const RepositoryPermissionsView: FunctionComponent = () => {
                                             <EditIcon/>
                                         </Button>
                                         <Button color="secondary" onClick={
-                                            () => confirmation({
+                                            () => confirmationMessage({
                                                 message: `Do you really want to revoke access for user ${p.userFullName}?`,
                                                 onConfirm: () => actions.loadableActions.delete.dispatch(p.id)
                                             })

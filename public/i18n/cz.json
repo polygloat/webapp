@@ -113,5 +113,8 @@
     }
   },
   "no_screenshots_yet" : "Zatím nebyly přidány žádné snímky obrazovky. Nějaké přidejte přetažením nebo kliknutím na plus.",
-  "operation_not_permitted_error" : "Nemáte dostatečná oprávnění pro tuto operaci."
+  "operation_not_permitted_error" : "Nemáte dostatečná oprávnění pro tuto operaci.",
+  "third_party_auth_error_message" : "Problém s přihlášení pomocí služeb třetích stran",
+  "delete_language_confirmation" : "Skutečně odstranit jazyk a všechny překlady do něj?",
+  "hard_mode_confirmation_rewrite_text" : "Přepište text: {{text}}"
 }

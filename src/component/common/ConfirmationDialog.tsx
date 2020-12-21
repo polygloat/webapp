@@ -59,7 +59,7 @@ export default function ConfirmationDialog(props: ConfirmationDialogProps) {
                     </DialogContentText>
                     {props.hardModeText &&
                     <Box>
-                        <TextField fullWidth={true} label={'Rewrite text: "' + props.hardModeText + '"'}
+                        <TextField fullWidth={true} label={<T parameters={{text: props.hardModeText}}>hard_mode_confirmation_rewrite_text</T>}
                                    value={input}
                                    onChange={(e) => setInput(e.target.value)}/>
                     </Box>

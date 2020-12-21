@@ -113,5 +113,8 @@
     }
   },
   "no_screenshots_yet" : "No screenshots have been added yet. Add some by dropping or clicking on plus.",
-  "operation_not_permitted_error" : "Your permissions are not sufficient for this opperation."
+  "operation_not_permitted_error" : "Your permissions are not sufficient for this opperation.",
+  "third_party_auth_error_message" : "Third party authentication error",
+  "delete_language_confirmation" : "Do you really want to delete this language and all translations?",
+  "hard_mode_confirmation_rewrite_text" : "Rewrite text: {{text}}"
 }

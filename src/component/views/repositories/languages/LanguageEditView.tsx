@@ -18,7 +18,7 @@ const actions = container.resolve(LanguageActions);
 
 export const LanguageEditView = () => {
 
-    let confirmation = (options: ConfirmationDialogProps) => confirmation({title: "Delete language", ...options});
+    let confirmationMessage = (options: ConfirmationDialogProps) => confirmation({title: "Delete language", ...options});
 
     let match = useRouteMatch();
 
@@ -56,33 +56,33 @@ export const LanguageEditView = () => {
     };
 
     return (
-            <BaseFormView
-                lg={6} md={8} xs={10}
-                title={<T>language_settings_title</T>}
-                initialValues={languageLoadable.data}
-                onSubmit={onSubmit}
-                saveActionLoadable={editLoadable}
-                resourceLoadable={languageLoadable}
-                validationSchema={Validation.LANGUAGE}
-                customActions={
-                    <Button variant="outlined" color="secondary"
-                            onClick={() => confirmation({
-                                message: <T parameters={{name: languageLoadable.data.name}}>delete_language_confirmation</T>,
-                                hardModeText: languageLoadable.data.name.toUpperCase(),
-                                confirmButtonText: <T>global_delete_button</T>,
-                                confirmButtonColor: "secondary",
-                                onConfirm: () => {
-                                    actions.loadableActions.delete.dispatch(repositoryId, languageId)
-                                }
-                            })}
-                    >
-                        <T>delete_language_button</T>
-                    </Button>}
-            >
-                {() => <>
-                    <TextField label={<T>edit_language_languge_name_label</T>} name="name" required={true}/>
-                    <TextField label={<T>abbreviation</T>} name="abbreviation" required={true}/>
-                </>}
-            </BaseFormView>
+        <BaseFormView
+            lg={6} md={8} xs={10}
+            title={<T>language_settings_title</T>}
+            initialValues={languageLoadable.data}
+            onSubmit={onSubmit}
+            saveActionLoadable={editLoadable}
+            resourceLoadable={languageLoadable}
+            validationSchema={Validation.LANGUAGE}
+            customActions={
+                <Button variant="outlined" color="secondary"
+                        onClick={() => confirmationMessage({
+                            message: <T parameters={{name: languageLoadable.data.name}}>delete_language_confirmation</T>,
+                            hardModeText: languageLoadable.data.name.toUpperCase(),
+                            confirmButtonText: <T>global_delete_button</T>,
+                            confirmButtonColor: "secondary",
+                            onConfirm: () => {
+                                actions.loadableActions.delete.dispatch(repositoryId, languageId)
+                            }
+                        })}
+                >
+                    <T>delete_language_button</T>
+                </Button>}
+        >
+            {() => <>
+                <TextField label={<T>edit_language_languge_name_label</T>} name="name" required={true}/>
+                <TextField label={<T>abbreviation</T>} name="abbreviation" required={true}/>
+            </>}
+        </BaseFormView>
     );
 };
