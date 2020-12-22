@@ -5,7 +5,12 @@ services:
     image: polygloat/polygloat:${TEST_POLYGLOAT_SERVER_VERSION}
     ports:
       - "${TEST_POLYGLOAT_API_PORT}:8080"
+      - 8091:8091
     environment:
       - polygloat.internal.populate=true
       - polygloat.internal.controllerEnabled=true
-      - "polygloat.screenshotsUrl=http://localhost:8201/screenshots"
+      - "polygloat.screenshots-url=http://localhost:8201/screenshots"
+      - polygloat.authentication.needs-email-verification=true
+      - polygloat.authentication.registrations-allowed=true
+      - polygloat.internal.fake-emails-sent=true
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,address=*:8091,server=y,suspend=n

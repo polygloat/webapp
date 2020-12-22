@@ -51,7 +51,10 @@ export const TranslationsGrid: FunctionComponent = (props) => {
     );
 
     return (
-        <BaseView title="Translations" headerChildren={isSearch || !isEmpty ? <MenuBar/> : null} loading={listContext.listLoadable.loading}>
+        <BaseView title="Translations"
+                  headerChildren={isSearch || !isEmpty ? <MenuBar/> : null}
+                  loading={listContext.listLoadable.loading}
+                  hideChildrenOnLoading={false}>
             {isEmpty ? onEmptyInner : onNotEmptyInner}
         </BaseView>
     )

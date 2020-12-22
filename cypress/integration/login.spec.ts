@@ -4,8 +4,6 @@ import {getAnyContainingText} from "../fixtures/xPath";
 import {login} from "../fixtures/apiCalls";
 import {getPopover} from "../fixtures/shared";
 
-require('cypress-xpath');
-
 context('Login', () => {
     beforeEach(() => {
         cy.visit(HOST);

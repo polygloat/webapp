@@ -97,6 +97,11 @@
   "translations_leave_save_confirmation_message" : "\nChcete zahodit změnu z \"{{initialValue}}\" na \"{{newValue}}\"?",
   "back_to_editing" : "Zpět k editaci",
   "translations_leave_save_confirmation" : "Zahodit změny?",
+  "sign_up_title" : "Registrace",
+  "sign_up_form_full_name" : "Celé jméno",
+  "sign_up_form_email" : "E-mail",
+  "sign_up_success_title" : "Zaregistrováno!",
+  "sign_up_submit_button" : "Odeslat",
   "translation_grid_screenshots_tooltip" : "Snímky obrazovky",
   "translations_screenshots_popover_title" : "Snímky obrazovky",
   "screenshot_delete_title" : "Odstranit snímek obrazovky",
@@ -113,5 +118,9 @@
     }
   },
   "no_screenshots_yet" : "Zatím nebyly přidány žádné snímky obrazovky. Nějaké přidejte přetažením nebo kliknutím na plus.",
-  "operation_not_permitted_error" : "Nemáte dostatečná oprávnění pro tuto operaci."
+  "operation_not_permitted_error" : "Nemáte dostatečná oprávnění pro tuto operaci.",
+  "third_party_auth_error_message" : "Problém s přihlášení pomocí služeb třetích stran",
+  "delete_language_confirmation" : "Skutečně odstranit jazyk a všechny překlady do něj?",
+  "hard_mode_confirmation_rewrite_text" : "Přepište text: {{text}}",
+  "sign_up_success_needs_verification_message" : "Registrace proběhla úspěšně. Před prvním přihlášením prosím ověřte svůj e-mail kliknutím na odkaz, který byl odeslán na Vám byl odeslán."
 }

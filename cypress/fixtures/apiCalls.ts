@@ -85,6 +85,24 @@ export const deleteUser = (username: string) => {
     return internalFetch(`sql/execute`, {method: "POST", body: deleteUserSql})
 }
 
+export const deleteUserWithInvitationCode = (username: string) => {
+    const sql = `
+        delete from email_verification where user_account_id in (select id from user_account where username='${username}');
+        delete from user_account where username='${username}';
+    `;
+
+    return internalFetch(`sql/execute`, {method: "POST", body: sql})
+}
+
+export const getUser = (username: string) => {
+    const sql = `select user_account.username, email_verification.id from user_account 
+    join email_verification on email_verification.user_account_id = user_account.id
+    where username='${username}'`;
+    return internalFetch(`sql/list`, {method: "POST", body: sql}).then((r) => {
+        return r.body[0];
+    })
+}
+
 export const createApiKey = (body: { repositoryId: number, scopes: Scope[] }) => apiFetch(`apiKeys`, {method: "POST", body}).then(r => r.body)
 
 export const addScreenshot = (repositoryId: number, key: string, path: string) => {

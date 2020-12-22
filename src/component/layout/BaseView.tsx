@@ -14,9 +14,12 @@ export interface BaseViewProps {
     md?: boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
     lg?: boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
     headerChildren?: ReactNode;
+    hideChildrenOnLoading?: boolean;
 }
 
 export const BaseView = (props: BaseViewProps) => {
+    const hideChildrenOnLoading = props.hideChildrenOnLoading === undefined || props.hideChildrenOnLoading === true
+
     return (
         <Container maxWidth={false}
                    style={{
@@ -43,7 +46,7 @@ export const BaseView = (props: BaseViewProps) => {
                 <Box p={4} pt={2} pb={2}>
                     <Grid container justify="center" alignItems="center">
                         <Grid item xs={props.xs || 12} md={props.md || 12} lg={props.lg || 12} sm={props.sm || 12}>
-                            {!props.loading ?
+                            {!props.loading || !hideChildrenOnLoading ?
                                 <Box>
                                     {typeof props.children === 'function' ? props.children() : props.children}
                                 </Box>
@@ -55,6 +58,5 @@ export const BaseView = (props: BaseViewProps) => {
                 </Box>
             </Box>
         </Container>
-
     );
 };
