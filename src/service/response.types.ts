@@ -42,6 +42,7 @@ export interface RemoteConfigurationDTO {
     }
     screenshotsUrl: string
     maxUploadFileSize: number
+    needsEmailVerification: boolean
 }
 
 export interface TokenDTO {

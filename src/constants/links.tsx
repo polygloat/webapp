@@ -34,7 +34,6 @@ export class Link {
         let link = this.template;
         params = params ? params : {};
         for (const param of Object.keys(params)) {
-            let param1 = params[param];
             link = link.replace(`:${param}`, params[param].toString());
         }
         return link;
@@ -56,7 +55,8 @@ export enum PARAMS {
     REPOSITORY_ID = 'repositoryId',
     LANGUAGE_ID = 'languageId',
     API_KEY_ID = 'languageId',
-
+    USER_ID = 'userID',
+    VERIFICATION_CODE = 'verificationCode',
 }
 
 export class LINKS {
@@ -69,6 +69,8 @@ export class LINKS {
     static LOGIN = Link.ofRoot('login');
 
     static OAUTH_RESPONSE = Link.ofParent(LINKS.LOGIN, 'auth_callback/' + p(PARAMS.SERVICE_TYPE));
+
+    static EMAIL_VERIFICATION = Link.ofParent(LINKS.LOGIN, 'verify_email/' + p(PARAMS.USER_ID) + '/' + p(PARAMS.VERIFICATION_CODE));
 
     static RESET_PASSWORD_REQUEST = Link.ofRoot('reset_password_request');
 

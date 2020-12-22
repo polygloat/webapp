@@ -13,9 +13,7 @@ interface OAuthRedirectionHandlerProps {
 const actions = container.resolve(GlobalActions);
 
 export const OAuthRedirectionHandler: FunctionComponent<OAuthRedirectionHandlerProps> = (props) => {
-
     const security = useSelector<AppState, GlobalState['security']>((state) => state.global.security);
-    //const loading = useSelector((state: AppState) => state.global.authLoading);
 
     const match = useRouteMatch();
 
