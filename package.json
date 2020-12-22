@@ -1,6 +1,6 @@
 {
   "name": "@polygloat/webapp",
-  "version": "1.0.0-alpha.10",
+  "version": "1.0.0-alpha.11",
   "description": "Single page web application for Polygloat localization framework",
   "main": "dist/index.js",
   "sideEffects": false,
